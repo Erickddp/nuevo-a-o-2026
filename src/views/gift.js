@@ -3,7 +3,7 @@ import { getCountdown } from '../lib/time.js';
 
 // --- Default Configuration ---
 const DEFAULT_CONFIG = {
-  introMs: 2500,
+  introMs: 2800,
   lineEnterMs: 700,
   blurPx: 4,
   grainOpacity: 0.035,
@@ -20,9 +20,9 @@ const DEFAULT_CONFIG = {
 };
 
 // --- Speed Control Constants ---
-const TAP_BOOST = 0.08;
-const SPEED_DECAY_PER_SEC = 0.15;
-let MAX_SPEED = 1.35;
+const TAP_BOOST = 0.04;
+const SPEED_DECAY_PER_SEC = 0.22;
+let MAX_SPEED = 1.25;
 let speedFactor = 1.0;
 
 // Load saved config
@@ -257,7 +257,9 @@ export default async function renderGift(params) {
     }
 
     const totalChars = linesToPlay.join('').length;
-    MAX_SPEED = Math.min(1.55, Math.max(1.20, 1.20 + (totalChars / 600) * 0.3));
+    MAX_SPEED = Math.min(
+      1.25,
+      Math.max(1.10, 1.10 + (totalChars / 900) * 0.2));
 
     for (let i = 0; i < linesToPlay.length; i++) {
       if (myRunId !== currentRunId) return;
