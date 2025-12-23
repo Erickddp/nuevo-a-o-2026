@@ -1,20 +1,19 @@
 @import './theme.css';
 
 :root {
-    /* Premium Palette */
     --accent: #d4af37;
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
-    /* More subtle */
     --text: #f0f0f0;
     --muted: #a0a0a0;
     --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 
-    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-
-    /* Easing */
+    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
     --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    --blur-px: 5px;
+    --grain-opacity: 0.035;
 }
 
 * {
@@ -24,38 +23,65 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
-    /* Mobile polish */
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text);
     font-family: var(--font-stack);
-    /* Premium System Stack */
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
-    /* Safe Area for iOS Home bar */
     padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Background Canvas */
+/* --- Layer 0: Background --- */
 #bg-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -10;
     pointer-events: none;
 }
 
-/* Layout - Mobile First Centering */
+/* --- Layer 1: Overlays --- */
+.focus-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    pointer-events: none;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: backdrop-filter 1s ease, -webkit-backdrop-filter 1s ease;
+}
+
+.focus-overlay.active {
+    backdrop-filter: blur(var(--blur-px));
+    -webkit-backdrop-filter: blur(var(--blur-px));
+}
+
+.film-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -4;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    transition: opacity 0.5s ease;
+}
+
+/* --- Layer 2: UI Content --- */
 #app {
     min-height: 100vh;
-    /* fallback */
     min-height: 100dvh;
-    /* dynamic viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,7 +90,23 @@ body {
     padding-top: max(var(--space-md), env(safe-area-inset-top));
     padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
     position: relative;
-    z-index: 1;
+    z-index: 10;
+}
+
+/* --- Focus Mode --- */
+body.focus-mode .focus-overlay.active {
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
+}
+
+body.focus-mode .film-grain {
+    opacity: 0.01 !important;
+}
+
+body.focus-mode .narrative-line {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    color: #fff;
+    transform: scale(1.02);
 }
 
 /* UI Components */
@@ -74,23 +116,15 @@ body {
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     border-radius: 18px;
-    /* Slightly rounder */
     padding: var(--space-lg);
     box-shadow: var(--shadow);
     transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
-
-    /* Responsive Mobile Width */
     width: 100%;
     max-width: 520px;
 }
 
-.card:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-}
-
 h1 {
     font-size: clamp(2rem, 5vw, 2.5rem);
-    /* Fluid typography */
     font-weight: 700;
     letter-spacing: -0.03em;
     margin-bottom: var(--space-md);
@@ -105,13 +139,11 @@ p {
     color: var(--muted);
     margin-bottom: var(--space-md);
     max-width: 60ch;
-    /* Readable length */
 }
 
 .btn {
     display: inline-block;
     padding: 14px 28px;
-    /* Larger touch target */
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.08);
     color: #fff;
@@ -120,13 +152,7 @@ p {
     transition: all 0.2s var(--ease-out);
     border: 1px solid var(--glass-border);
     cursor: pointer;
-
-    /* Focus Accessibility */
     outline: none;
-}
-
-.btn:focus-visible {
-    box-shadow: 0 0 0 2px var(--accent);
 }
 
 .btn:active {
@@ -156,27 +182,21 @@ p {
     }
 }
 
-/* Narrative Styles - Refined */
+/* Narrative */
 .narrative-line {
-    font-family: var(--font-stack);
     font-size: clamp(1.4rem, 6vw, 1.8rem);
-    /* Fluid font size */
     font-weight: 600;
     color: var(--text);
     text-align: center;
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), text-shadow 0.3s ease;
     max-width: min(90vw, 800px);
-    /* Mobile safe width */
     margin: 0 auto;
     line-height: 1.45;
-    /* Optimal reading height */
     position: relative;
     will-change: opacity, transform;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    /* Contrast boost on glass */
 }
 
 .narrative-line.active {
@@ -187,25 +207,27 @@ p {
 .narrative-line.exit {
     opacity: 0;
     transform: translateY(-8px);
-    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
-.line-highlight {
-    animation: textGlow 0.5s ease-out forwards;
+/* Aura Trail (Ghost element) */
+.aura-trail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+    filter: blur(4px);
+    transform: scale(1.05);
+    z-index: -1;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-@keyframes textGlow {
-    0% {
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    50% {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
-    }
-
-    100% {
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
+.aura-trail.fade {
+    opacity: 0;
+    transform: scale(1.1);
 }
 
 .intro-text {
@@ -213,7 +235,6 @@ p {
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    /* Cleaner Caps */
     opacity: 0;
     transition: opacity 1.2s ease;
     text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
@@ -241,42 +262,8 @@ p {
     opacity: 1;
 }
 
-/* Effects - Optimized */
-.film-grain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    pointer-events: none;
-    opacity: 0.035;
-    /* Subtle */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-.focus-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    /* Optimización móvil: start clear */
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    transition: backdrop-filter 1.5s ease, -webkit-backdrop-filter 1.5s ease;
-    pointer-events: none;
-}
-
-.focus-overlay.active {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-
 .breathe {
     animation: breatheAnim 12s ease-in-out infinite;
-    /* Slower = more premium */
 }
 
 @keyframes breatheAnim {
@@ -299,7 +286,6 @@ p {
     animation: rippleAnim 600ms ease-out forwards;
     pointer-events: none;
     z-index: -1;
-    will-change: transform, opacity;
 }
 
 @keyframes rippleAnim {
@@ -309,24 +295,131 @@ p {
     }
 }
 
-/* Mobile Low Power Mode (Small screens) */
-@media screen and (max-width: 480px) {
-    .focus-overlay.active {
-        backdrop-filter: blur(2px);
-        /* Cheaper blur */
-        -webkit-backdrop-filter: blur(2px);
+.line-highlight {
+    animation: textGlow 0.5s ease-out forwards;
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .film-grain {
-        opacity: 0.025;
+    50% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
     }
 
-    /* Less noise overlapping text */
-    .narrative-line {
-        font-size: 1.5rem;
-        /* readable but large */
-        width: 90%;
+    100% {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
+}
+
+/* --- Updates for "Momento 2026" Set Piece --- */
+.aligning {
+    /* Subtle shift to signal set piece */
+    transition: transform 1s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.wow-pulse {
+    animation: wowPulseAnim 0.6s ease-out forwards;
+}
+
+@keyframes wowPulseAnim {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 0 transparent;
+    }
+}
+
+.background-flash {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.background-flash.active {
+    opacity: 0.06;
+}
+
+/* Easter Egg */
+.easter-2026 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.easter-2026.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* --- DEV PANEL --- */
+#dev-panel {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 10px;
+    font-size: 10px;
+    z-index: 10000;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid #333;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+#dev-panel.active {
+    transform: translateY(0);
+}
+
+.dev-control {
+    display: flex;
+    flex-direction: column;
+    min-width: 60px;
+}
+
+.dev-control label {
+    margin-bottom: 2px;
+    color: #aaa;
+}
+
+.dev-btn {
+    padding: 4px 8px;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.dev-btn:active {
+    background: #555;
 }
 
 /* Reduced Motion */
@@ -337,7 +430,8 @@ p {
     .intro-text,
     .final-caption,
     .timer-fade,
-    .focus-overlay {
+    .focus-overlay,
+    .easter-2026 {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -347,7 +441,9 @@ p {
 
     .breathe,
     .line-highlight,
-    .ripple {
+    .ripple,
+    .aura-trail,
+    .wow-pulse {
         animation: none !important;
         display: none;
     }
