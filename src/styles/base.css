@@ -831,3 +831,41 @@ p {
         display: none;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Intro: secreto + familiar */
+.intro-text {
+    font-size: clamp(1.35rem, 5.2vw, 1.95rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    text-align: center;
+    line-height: 1.35;
+    letter-spacing: 0.015em;
+
+    margin: 0 0 1.1rem 0;
+    padding: 0 0.75rem;
+
+    /* “calidez” sutil, sin neon */
+    text-shadow: 0 0 18px rgba(212, 175, 55, 0.10);
+
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 650ms ease, transform 650ms ease;
+}
+
+.intro-text.visible {
+    opacity: 0.92;
+    transform: translateY(0);
+}

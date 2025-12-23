@@ -218,8 +218,17 @@ export default async function renderGift(params) {
     focusOverlay.classList.remove('active');
     const introEl = document.createElement('div');
     introEl.className = 'intro-text';
-    introEl.innerText = 'Este mensaje es solo para ti 💌';
+    introEl.innerText = 'Esto es para';
     contentArea.appendChild(introEl);
+
+
+
+    requestAnimationFrame(() => introEl.classList.add('visible'));
+
+
+
+
+
 
     await waitScaled(100, myRunId, false);
     introEl.style.opacity = '0.8';
