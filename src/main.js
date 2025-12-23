@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Router
     initRouter();
+
+    // 4. Dev Handle
+    if (import.meta.env.DEV) {
+        import('./lib/backgroundManager.js').then(m => {
+            window.__BG = m.bgManager;
+            console.log("Background Manager active: window.__BG");
+        });
+    }
 });
 
 // Simple Theme Applicator

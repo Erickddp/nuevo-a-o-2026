@@ -7,20 +7,44 @@ export default async function renderHome() {
   const container = document.createElement('div');
   container.className = 'home-container';
 
+  // --- HOME HERO SECTION ---
+  const heroHeader = document.createElement('header');
+  heroHeader.className = 'home-hero';
+
   // Title Area
   const title = document.createElement('h1');
-  title.style.marginBottom = recipientName ? '0.5rem' : '1rem';
+  title.className = 'home-title';
+  // title.style.marginBottom = recipientName ? '0.5rem' : '1rem'; // Removed inline style to use CSS class
 
   if (recipientName) {
-    title.innerHTML = `<span style="display:block; font-size: 0.6em; opacity:0.8; font-weight:400; letter-spacing:1px; margin-bottom:5px;">HOLA, ${recipientName.toUpperCase()}</span>RUMBO AL 2026`;
+    title.innerHTML = `<span class="home-greeting">HOLA, ${recipientName.toUpperCase()}</span>RUMBO AL 2026`;
   } else {
     title.innerText = 'RUMBO AL 2026';
   }
 
-  // Dynamic Message
+  // Accent Line
+  const accent = document.createElement('div');
+  accent.className = 'home-accent';
+  accent.setAttribute('aria-hidden', 'true');
+
+  // Subtitle Wrap
+  const subWrap = document.createElement('div');
+  subWrap.className = 'home-subwrap';
+
+  const sticker = document.createElement('span');
+  sticker.className = 'home-sticker';
+  sticker.innerText = 'NO ES CUENTA ATRÁS';
+
   const dynamicMsg = document.createElement('p');
   dynamicMsg.className = 'home-subtitle';
   dynamicMsg.innerText = getCurrentMessage();
+
+  subWrap.appendChild(sticker);
+  subWrap.appendChild(dynamicMsg);
+
+  heroHeader.appendChild(title);
+  heroHeader.appendChild(accent);
+  heroHeader.appendChild(subWrap);
 
   // Clock Card
   const countdownCard = document.createElement('div');
@@ -121,8 +145,7 @@ export default async function renderHome() {
 
   ctaContainer.appendChild(startBtn);
 
-  container.appendChild(title);
-  container.appendChild(dynamicMsg);
+  container.appendChild(heroHeader);
   container.appendChild(countdownCard);
   container.appendChild(spacer);
   container.appendChild(ctaContainer);

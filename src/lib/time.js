@@ -220,7 +220,7 @@ export function getCurrentMessage() {
     if (month === 11 && day === 25) return "¡Feliz Navidad! El amor está en el aire.";
     if (month === 11 && day === 31) return "El último adiós al 2025. ¿Listo?";
     if (month === 0 && day === 1) return "¡Feliz Año Nuevo! El futuro es hoy."; // Only if year < 2026 (e.g. 2025 Jan 1)
-    return "No es una cuenta atrás. Es una espera con sentido.";
+    return "Es una espera con sentido.";
   }
 
   // 2026
