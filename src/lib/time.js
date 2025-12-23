@@ -97,6 +97,39 @@ function getDevDateOverrideCDMX() {
   return new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
 }
 
+// --- Theme Engine Logic ---
+export function getThemeForDate() {
+  const nowReal = new Date();
+  let month, day;
+
+  const devOverride = getDevDateOverrideCDMX();
+  if (devOverride) {
+    month = devOverride.getUTCMonth();
+    day = devOverride.getUTCDate();
+  } else {
+    const offset = getTZOffsetMs('America/Mexico_City', nowReal);
+    const cdmxWallMsReal = nowReal.getTime() + offset;
+    const cdmxDateReal = new Date(cdmxWallMsReal);
+    month = cdmxDateReal.getUTCMonth();
+    day = cdmxDateReal.getUTCDate();
+  }
+
+  // Default: Neutral Warm
+  let theme = { key: 'neutral', bgMode: 'float' };
+
+  // Holiday Season (Dec 1 - Jan 6)
+  if (month === 11 || (month === 0 && day <= 6)) {
+    theme = { key: 'holiday', bgMode: 'bokeh' };
+  }
+
+  // New Year Peak (Dec 31 - Jan 2)
+  if ((month === 11 && day === 31) || (month === 0 && day <= 2)) {
+    theme = { key: 'newyear', bgMode: 'sparkles' };
+  }
+
+  return theme;
+}
+
 // --- Main Exports ---
 
 export function getClockData() {
@@ -117,20 +150,16 @@ export function getClockData() {
   }
 
   // 2. PROGRESS (Post-2026)
-  // Convert current UTC time to CDMX Wall Time for correct Day/Year calculation
   const offsetCurrent = getTZOffsetMs('America/Mexico_City', now);
   const cdmxWallMs = nowMs + offsetCurrent;
   const cdmxDate = new Date(cdmxWallMs);
 
-  // Use UTC methods to read the "Wall Clock" components
   const year = cdmxDate.getUTCFullYear();
   const monthIndex = cdmxDate.getUTCMonth();
 
-  // Day of Year Calc relative to CDMX Year
   const startOfYearMs = Date.UTC(year, 0, 1, 0, 0, 0);
   const diffYear = cdmxWallMs - startOfYearMs;
   const day = Math.floor(diffYear / (1000 * 60 * 60 * 24)) + 1;
-
   const totalDays = isLeapYear(year) ? 366 : 365;
 
   return {
@@ -191,7 +220,7 @@ export function getCurrentMessage() {
     if (month === 11 && day === 25) return "¡Feliz Navidad! El amor está en el aire.";
     if (month === 11 && day === 31) return "El último adiós al 2025. ¿Listo?";
     if (month === 0 && day === 1) return "¡Feliz Año Nuevo! El futuro es hoy."; // Only if year < 2026 (e.g. 2025 Jan 1)
-    return "Cada segundo cuenta, no lo desperdicies.";
+    return "No es una cuenta atrás. Es una espera con sentido.";
   }
 
   // 2026

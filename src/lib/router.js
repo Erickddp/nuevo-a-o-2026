@@ -21,6 +21,12 @@ export function navigateTo(url) {
 }
 
 async function handleLocation() {
+    // 1. Cleanup previous view if needed
+    if (window.__viewCleanup) {
+        window.__viewCleanup();
+        window.__viewCleanup = null;
+    }
+
     const path = window.location.pathname;
     const match = matchRoute(path);
 

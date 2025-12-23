@@ -1,29 +1,48 @@
 :root {
-  /* Colors - Premium Dark & Gold/Silver */
-  --bg-color: #050505;
+  /* Default Warm Neutral (All Year) */
+  --bg-color: #121010;
+  /* Warm charcoal */
+  --bg-gradient-top: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+
   --text-main: #f0f0f0;
-  --text-muted: #a0a0a0;
-  --accent-gold: #d4af37;
-  --accent-silver: #c0c0c0;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.15);
-  
-  /* Status Colors */
-  --success: #4cd964;
-  --error: #ff3b30;
-  --loading: #007aff;
+  --text-muted: #a8a09a;
+  /* Warmer grey */
+  --accent-gold: #e5c567;
+  /* Softer gold */
+
+  --glass-bg: rgba(255, 245, 235, 0.05);
+  /* Warm tint */
+  --glass-border: rgba(255, 235, 210, 0.08);
+  --glass-highlight: rgba(255, 240, 220, 0.1);
+
+  /* Status */
+  --success: #6cc070;
+  --error: #e55b5b;
 
   /* Fonts */
   --font-main: 'Outfit', sans-serif;
-
-  /* Spacing */
-  --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
-  --space-xl: 4rem;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
 
-  /* Transitions */
-  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --transition-smooth: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+/* Holiday Mode (Dec) */
+[data-theme="holiday"] {
+  --bg-color: #1a0505;
+  /* Deep rich wine/red-black */
+  --bg-gradient-top: radial-gradient(circle at 50% 0%, rgba(255, 50, 50, 0.15) 0%, transparent 70%);
+  --accent-gold: #ffcf40;
+  /* Golden yellow */
+  --glass-bg: rgba(255, 220, 220, 0.06);
+}
+
+/* New Year Mode (Dec 31 - Jan 2) */
+[data-theme="newyear"] {
+  --bg-color: #080812;
+  /* Deep midnight blue-black */
+  --bg-gradient-top: radial-gradient(circle at 50% 0%, rgba(200, 200, 255, 0.12) 0%, transparent 80%);
+  --accent-gold: #ffffff;
+  /* Bright white/silver */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  /* Brighter glass */
 }

@@ -20,7 +20,7 @@ export default function handler(req, res) {
 
     // Base de datos de regalos (13 placeholders)
     const GIFTS = {
-        g01: { token: "9f3c2b8e7a6d4c1e0a9b5f8d3e2c7a1f4b6d9e0c2a8f7", message: "Eugenio y Marisol - Les deseo un feliz nuevo año" },
+        g01: { token: "9f3c2b8e7a6d4c1e0a9b5f8d3e2c7a1f4b6d9e0c2a8f7", message: "mensajes" },
         g02: { token: "c8a1f3e7b6d2a9e0c4f8d5b7e1a3c9f6d2a8b0e4f7c1", message: "MESSAGE_02" },
         g03: { token: "7e0f1c3a8d2b6f9e5a4c7b1d0f8e9a2c6b3d4f7e1", message: "MESSAGE_03" },
         g04: { token: "2a9c6e7f0b4d8f1e3c5a7d6b9e0f2a8c4", message: "MESSAGE_04" },
