@@ -3,50 +3,80 @@
  * Target: 2026-01-01T00:00:00 (Local)
  */
 
-const TARGET_DATE = new Date('2026-01-01T00:00:00');
+const TARGET_DATE = new Date(2026, 0, 1, 0, 0, 0);
 
-export function getCountdown() {
+export const MONTH_PHASES = [
+  "Enero: El comienzo del viaje",
+  "Febrero: Construyendo inercia",
+  "Marzo: La primavera despierta",
+  "Abril: Lluvias que nutren",
+  "Mayo: Florecimiento pleno",
+  "Junio: Mitad de camino",
+  "Julio: Revaluando el rumbo",
+  "Agosto: Calor y energía",
+  "Septiembre: Cosecha de esfuerzos",
+  "Octubre: Colores de cambio",
+  "Noviembre: La recta final",
+  "Diciembre: Reflexión y cierre"
+];
+
+function isLeapYear(y) {
+  return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+}
+
+function getDayOfYear(date) {
+  const start = new Date(date.getFullYear(), 0, 1);
+  const diff = date - start;
+  return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+}
+
+export function getClockData() {
   const now = new Date();
-  const diff = TARGET_DATE - now;
 
-  if (diff <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0, isArrived: true };
+  // PRE-2026: Countdown
+  if (now < TARGET_DATE) {
+    const diff = TARGET_DATE - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    return {
+      mode: 'COUNTDOWN',
+      days,
+      hours,
+      minutes,
+      seconds
+    };
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / 1000 / 60) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  // POST-2026: Year Progress
+  const year = now.getFullYear();
+  const day = getDayOfYear(now);
+  const totalDays = isLeapYear(year) ? 366 : 365;
+  const monthIndex = now.getMonth();
 
-  return { days, hours, minutes, seconds, isArrived: false };
+  return {
+    mode: 'PROGRESS',
+    year,
+    day,
+    totalDays,
+    monthPhase: MONTH_PHASES[monthIndex] || "Progreso del año"
+  };
 }
 
 export function getCurrentMessage() {
-  // Mock Logic for dynamic messages
   const now = new Date();
-  const month = now.getMonth(); // 0-11
-  const day = now.getDate();
 
-  // Special Days
-  if (now.getFullYear() === 2025 && month === 11 && day === 24) return "¡Feliz Nochebuena! La magia está cerca.";
-  if (now.getFullYear() === 2025 && month === 11 && day === 31) return "El último adiós al 2025. ¿Listo?";
-  if (now.getFullYear() >= 2026) return "¡Bienvenido al 2026! El futuro es hoy.";
+  // Special Holiday Messages (Pre-2026)
+  if (now.getFullYear() < 2026) {
+    const month = now.getMonth();
+    const day = now.getDate();
+    if (month === 11 && day === 24) return "¡Feliz Nochebuena! La magia está cerca.";
+    if (month === 11 && day === 31) return "El último adiós al 2025. ¿Listo?";
+    return "Cada segundo cuenta hacia el 2026.";
+  }
 
-  // Monthly 2025 countdown messages (Generic placeholders)
-  const messages = [
-    "Enero: Un inicio tranquilo.",
-    "Febrero: El amor está en el aire.",
-    "Marzo: La primavera se acerca.",
-    "Abril: Lluvias y flores.",
-    "Mayo: El sol brilla más.",
-    "Junio: Mitad de año.",
-    "Julio: Calor y energía.",
-    "Agosto: Vacaciones soñadas.",
-    "Septiembre: Nuevos comienzos.",
-    "Octubre: Hojas de otoño.",
-    "Noviembre: La cuenta regresiva final.",
-    "Diciembre: Casi estamos ahí."
-  ];
-
-  return messages[month] || "Cada segundo cuenta hacia el 2026.";
+  // Post-2026 default message
+  return "¡Bienvenido al 2026! El futuro es hoy.";
 }

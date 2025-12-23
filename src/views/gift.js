@@ -15,7 +15,7 @@ const DEFAULT_CONFIG = {
   interludeEnabled: true,
   interludeDurationMs: 3000,
   confettiCount: 80,
-  showHomeCta: 'off', // No longer used as default
+  showHomeCta: 'off',
   tapAccelEnabled: true
 };
 
@@ -75,19 +75,23 @@ export default async function renderGift(params) {
     document.body.appendChild(flashOverlay);
   }
 
-  // Interlude Element
+  // Interlude Element (Should be above background/noise but below Exit Overlay)
+  // Ensure it's in BODY so it doesn't get wiped
   let interludeEl = document.querySelector('.interlude-2026');
   if (!interludeEl) {
     interludeEl = document.createElement('div');
     interludeEl.className = 'interlude-2026';
     interludeEl.innerHTML = `<canvas class="fx-canvas"></canvas><div class="year-2026">2026</div>`;
-    document.body.appendChild(interludeEl);
+    document.body.appendChild(interludeEl); // DIRECT BODY APPEND
   }
 
-  // Activity/Exit Overlay
-  // Ensure we only have one
+  // Activity/Exit Overlay (Should be UPPERMOST)
+  // Ensure we only have one and cleanup if re-rendering view
   let exitOverlayBtn = document.querySelector('.exit-btn');
-  if (exitOverlayBtn) exitOverlayBtn.parentElement.remove(); // Cleanup old if exists reload
+  if (exitOverlayBtn) {
+    const parent = exitOverlayBtn.parentElement;
+    if (parent && parent.classList.contains('exit-overlay')) parent.remove();
+  }
 
   // Easter Egg Element
   let easterEl = document.querySelector('.easter-2026');
@@ -117,8 +121,8 @@ export default async function renderGift(params) {
   let tapResetTimer = null;
 
   const handleTap = (e) => {
-    // Check if tapping exit button
-    if (e.target.classList.contains('exit-btn')) return; // Handled by click listener
+    // Check if tapping exit button directly (extra safety, though overlay pointer-events handle it)
+    if (e.target.closest('.exit-btn')) return;
 
     const now = Date.now();
     if (inputLocked) return;
@@ -286,30 +290,29 @@ export default async function renderGift(params) {
         lineEl.remove();
         await waitScaled(200, myRunId);
       } else {
-        await waitScaled(1200, myRunId); // Short hold
+        await waitScaled(500, myRunId);
 
-        // --- TRANSITION TO INTERLUDE ---
-
-        // 1. Show Exit Overlay (Replay option before closure)
+        // --- PRE-INTERLUDE WINDOW ---
+        // Just show the arrow for a moment (e.g. 2s)
         if (myRunId !== currentRunId) return;
+
+        ensureExitOverlay(document.body);
         showExitOverlay({ final: false });
 
-        await waitScaled(1200, myRunId);
+        // Wait for user to tap replay if they want, brief pause before 2026
+        await waitScaled(2000, myRunId);
         if (myRunId !== currentRunId) return;
 
-        hideExitOverlay();
-        inputLocked = true; // Lock main input not overlay
+        // Clear last line before interlude
+        contentArea.innerHTML = '';
+
+        // --- INTERLUDE START ---
+        inputLocked = true;
 
         if (CONFIG.interludeEnabled) {
-          lineEl.classList.remove('active');
-          lineEl.classList.add('exit');
-          await waitScaled(400, myRunId, false);
-          if (myRunId !== currentRunId) return;
-
-          contentArea.innerHTML = '';
           ACT = 'INTERLUDE';
+          ensureExitOverlay(document.body);
           await runInterludeSequence();
-
           if (myRunId === currentRunId) startClosure(null);
         } else {
           startClosure(lineEl);
@@ -327,8 +330,6 @@ export default async function renderGift(params) {
     canvas.height = window.innerHeight;
 
     interludeEl.classList.add('visible');
-
-    // Ensure overlay is interactable if needed in future, but currently we hide it
 
     let running = true;
     let particles = [];
@@ -376,23 +377,26 @@ export default async function renderGift(params) {
   async function startClosure(lastLineEl) {
     ACT = 3;
     inputLocked = false;
-    currentRunId++; // New run ID
+    currentRunId++;
 
-    if (lastLineEl) {
-      lastLineEl.classList.remove('active');
-      lastLineEl.classList.add('exit');
-      await wait(600);
-    }
-
+    // Clear content
     contentArea.innerHTML = '';
 
-    // Show final overlay and arm auto-exit
-    showExitOverlay({ final: true });
-    armAutoExit(2800);
+    // Show final phrase with premium style
+    const phrase = document.createElement('div');
+    phrase.className = 'final-quote';
+    phrase.innerText = "Lo mejor aún no llega… pero ya viene.";
+    contentArea.appendChild(phrase);
 
-    // No redundant clock here, just ambient
+    // Slight delay for smooth entrance
+    setTimeout(() => phrase.classList.add('show'), 150);
+
+    // Show final overlay and arm auto-exit
+    ensureExitOverlay(document.body);
+    showExitOverlay({ final: true });
+    armAutoExit(3200);
+
     focusOverlay.classList.remove('active');
-    // Maybe keep breathe for ambience?
     contentArea.classList.remove('breathe');
   }
 
@@ -406,6 +410,7 @@ export default async function renderGift(params) {
     timerArea.classList.remove('visible');
     timerArea.innerHTML = '';
 
+    // Smoothly hide generic overlay
     hideExitOverlay();
 
     focusOverlay.classList.add('active');
@@ -415,26 +420,37 @@ export default async function renderGift(params) {
     if (linesToPlay.length > 0) playMessage(linesToPlay.join('\n'));
   }
 
-  // --- Overlay Logic ---
-  function showExitOverlay({ final = false }) {
+  // --- Overlay Logic (Structural) ---
+  function ensureExitOverlay(parent) {
     let overlay = document.querySelector('.exit-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.className = 'exit-overlay';
-      // Label is always "Volver a ver" since that is the action for tap
-      overlay.innerHTML = `<button class="exit-btn">Volver a ver</button>`;
-      document.body.appendChild(overlay);
+      // SVG Arrow Icon
+      overlay.innerHTML = `
+            <button class="exit-btn" aria-label="Volver a ver">
+               <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6 0 2.97-2.17 5.43-5 5.91v2.02c3.95-.49 7-3.85 7-7.93 0-4.42-3.58-8-8-8zm-6 8c0-1.65.67-3.15 1.76-4.24l-1.41-1.41C4.9 8.79 4 10.79 4 13c0 4.08 3.05 7.44 7 7.93v-2.02c-2.83-.48-5-2.94-5-5.91z"/></svg>
+            </button>`;
 
-      overlay.querySelector('.exit-btn').onclick = (e) => {
-        e.stopPropagation(); // prevent body tap
+      // Handler attached once
+      const btn = overlay.querySelector('.exit-btn');
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
         replayAct2();
       };
     }
 
-    const btn = overlay.querySelector('.exit-btn');
-    btn.innerText = final ? "Volver a ver" : "Volver a ver";
+    // Ensure it is in the correct parent
+    if (overlay.parentElement !== parent) {
+      parent.appendChild(overlay);
+    }
+  }
 
-    // Force micro delay for transition
+  function showExitOverlay({ final = false }) {
+    const btn = document.querySelector('.exit-btn');
+    if (!btn) return;
+
     requestAnimationFrame(() => {
       btn.classList.add('is-visible');
       if (final) btn.classList.add('is-final');
@@ -470,8 +486,6 @@ export default async function renderGift(params) {
   }
 
   function renderMiniCountdown(container) {
-    // Only used if we decide to show clock, but user requested remove redundant clock.
-    // Keeping empty or ambient logic.
     container.innerHTML = '';
   }
 
@@ -501,13 +515,13 @@ export default async function renderGift(params) {
   }
 
   if (isDev() || new URLSearchParams(window.location.search).has('dev')) {
-    // Init Dev panel logic (condensed for brevity as it was perfect before)
-    // ... existing dev panel code ...
+    // Init Dev panel logic
     const initDevPanel = () => {
       if (document.getElementById('dev-panel')) return;
       const panel = document.createElement('div'); panel.id = 'dev-panel';
       const controls = [
         { label: 'Tap Boost', key: 'tapAccelEnabled', type: 'bool' },
+        { label: 'Interlude', key: 'interludeEnabled', type: 'bool' },
         { label: 'Intro (ms)', key: 'introMs', min: 0, max: 5000, step: 100 },
       ];
       controls.forEach(c => {
