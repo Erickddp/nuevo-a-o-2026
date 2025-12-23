@@ -6,6 +6,16 @@
 const USE_MOCK = false; // Set to false to use real Backend (/api/message)
 
 export async function fetchSecretMessage({ id, token }) {
+    // DEV MODE CHECK
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isDevParam = new URLSearchParams(window.location.search).has('dev');
+
+    // Si estamos en localhost o se fuerza con ?dev=1, usamos el Mock Dev
+    if (isLocal || isDevParam) {
+        console.log("DEV MODE: Returning mock data");
+        return mockFetch(id, token, true); // Pass true to indicate dev mode text
+    }
+
     if (USE_MOCK) {
         return mockFetch(id, token);
     }
@@ -38,15 +48,20 @@ export async function fetchSecretMessage({ id, token }) {
     }
 }
 
-// Mock Simulator (Legacy)
-function mockFetch(id, token) {
+// Mock Simulator (Legacy + Dev Mode)
+function mockFetch(id, token, isDev = false) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (!token || !id) return reject(new Error("Token inválido."));
-            if (token === 'bad') return reject(new Error("No autorizado."));
+            if (token === 'bad') return reject(new Error("No autorizado (Mock)."));
+
+            const message = isDev
+                ? "Modo Desarrollador Activado.\nEsta es una simulación de mensaje.\nSirve para probar la narrativa sin backend.\nDisfruta el diseño premium."
+                : "MOCK: Mensaje secreto demo.";
+
             resolve({
                 authorized: true,
-                message: "MOCK: Mensaje secreto demo."
+                message: message
             });
         }, 1000);
     });

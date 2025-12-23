@@ -4,6 +4,7 @@
     --accent: #d4af37;
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
+    /* More subtle */
     --text: #f0f0f0;
     --muted: #a0a0a0;
     --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
@@ -35,7 +36,7 @@ body {
     padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* --- Layer 0: Background --- */
+/* Layer 0, 1, 2 same as before */
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -46,7 +47,6 @@ body {
     pointer-events: none;
 }
 
-/* --- Layer 1: Overlays --- */
 .focus-overlay {
     position: fixed;
     top: 0;
@@ -78,7 +78,6 @@ body {
     transition: opacity 0.5s ease;
 }
 
-/* --- Layer 2: UI Content --- */
 #app {
     min-height: 100vh;
     min-height: 100dvh;
@@ -93,7 +92,6 @@ body {
     z-index: 10;
 }
 
-/* --- Focus Mode --- */
 body.focus-mode .focus-overlay.active {
     backdrop-filter: blur(0px) !important;
     -webkit-backdrop-filter: blur(0px) !important;
@@ -109,7 +107,7 @@ body.focus-mode .narrative-line {
     transform: scale(1.02);
 }
 
-/* UI Components */
+/* Common UI */
 .card {
     background: var(--glass);
     backdrop-filter: blur(12px);
@@ -160,26 +158,8 @@ p {
     background: rgba(255, 255, 255, 0.12);
 }
 
-/* Utilities */
 .hidden {
     display: none !important;
-}
-
-.fade-in {
-    animation: fadeIn 0.8s var(--ease-out) forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
 }
 
 /* Narrative */
@@ -209,7 +189,6 @@ p {
     transform: translateY(-8px);
 }
 
-/* Aura Trail (Ghost element) */
 .aura-trail {
     position: absolute;
     top: 0;
@@ -240,6 +219,7 @@ p {
     text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 
+/* Closure elements */
 .final-caption {
     font-size: 0.95rem;
     color: var(--muted);
@@ -262,6 +242,7 @@ p {
     opacity: 1;
 }
 
+/* Effects */
 .breathe {
     animation: breatheAnim 12s ease-in-out infinite;
 }
@@ -313,12 +294,7 @@ p {
     }
 }
 
-/* --- Updates for "Momento 2026" Set Piece --- */
-.aligning {
-    /* Subtle shift to signal set piece */
-    transition: transform 1s cubic-bezier(0.2, 0, 0, 1);
-}
-
+/* Single pulse now */
 .wow-pulse {
     animation: wowPulseAnim 0.6s ease-out forwards;
 }
@@ -353,7 +329,6 @@ p {
     opacity: 0.06;
 }
 
-/* Easter Egg */
 .easter-2026 {
     position: fixed;
     top: 50%;
@@ -374,8 +349,108 @@ p {
     transform: translate(-50%, -50%) scale(1);
 }
 
+.speed-boost {
+    transition: text-shadow 0.2s ease;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
 
-/* --- DEV PANEL --- */
+/* --- INTERLUDE 2026 --- */
+.interlude-2026 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.interlude-2026.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.year-2026 {
+    font-size: clamp(4rem, 15vw, 6rem);
+    font-weight: 800;
+    color: transparent;
+    background: linear-gradient(135deg, #fff 20%, #d4af37 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+    letter-spacing: -2px;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.interlude-2026.visible .year-2026 {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fx-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* EXIT OVERLAY */
+.exit-overlay {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+.exit-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .35s ease, transform .35s ease, background .35s ease, border-color 0.35s ease;
+    cursor: pointer;
+}
+
+.exit-btn.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.exit-btn.is-final {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(0) scale(1.06);
+}
+
+.exit-btn:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.16);
+}
+
+/* Remove old CTA styles */
+.home-cta {
+    display: none !important;
+}
+
+/* Dev Panel */
 #dev-panel {
     position: fixed;
     bottom: 0;
@@ -431,7 +506,11 @@ p {
     .final-caption,
     .timer-fade,
     .focus-overlay,
-    .easter-2026 {
+    .easter-2026,
+    .interlude-2026,
+    .year-2026,
+    .speed-boost,
+    .exit-btn {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -449,6 +528,10 @@ p {
     }
 
     .film-grain {
+        display: none;
+    }
+
+    .fx-canvas {
         display: none;
     }
 }
