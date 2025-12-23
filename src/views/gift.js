@@ -258,7 +258,7 @@ export default async function renderGift(params) {
 
     const totalChars = linesToPlay.join('').length;
     MAX_SPEED = Math.min(
-      1.25,
+      1.05,
       Math.max(1.10, 1.10 + (totalChars / 900) * 0.2));
 
     for (let i = 0; i < linesToPlay.length; i++) {
