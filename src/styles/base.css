@@ -139,6 +139,21 @@ p {
     max-width: 60ch;
 }
 
+.clock-text-large {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.clock-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 .btn {
     display: inline-block;
     padding: 14px 28px;
