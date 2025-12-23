@@ -55,7 +55,6 @@ body {
 .card:hover {
     border-color: var(--glass-highlight);
     box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.1);
-    /* Subtle gold glow */
 }
 
 h1 {
@@ -111,5 +110,189 @@ p {
     from {
         opacity: 0;
         transform: translateY(10px);
+    }
+}
+
+/* Narrative Styles */
+.narrative-line {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--text-main);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    /* Default transition */
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+    position: relative;
+    /* Optimize for animations */
+    will-change: opacity, transform;
+}
+
+.narrative-line.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.narrative-line.exit {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Line Highlight Subtle Flash */
+.line-highlight {
+    animation: textGlow 0.4s ease-out forwards;
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 0 transparent;
+    }
+
+    50% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    100% {
+        text-shadow: 0 0 0 transparent;
+    }
+}
+
+.intro-text {
+    font-size: 1rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    /* Subtle gold glow */
+}
+
+.final-caption {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 1s ease;
+    margin-bottom: 2rem;
+}
+
+.final-caption.warm-glow {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.timer-fade {
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.timer-fade.visible {
+    opacity: 1;
+}
+
+/* --- Premium Effects & Overlays --- */
+
+/* Film Grain */
+.film-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    /* Top overlay */
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Focus / Blur Overlay */
+.focus-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Behind content, above bg */
+    backdrop-filter: blur(0px);
+    /* Start clear */
+    transition: backdrop-filter 1.5s ease;
+    pointer-events: none;
+}
+
+.focus-overlay.active {
+    backdrop-filter: blur(4px);
+    /* Narrative focus */
+}
+
+/* Provide fake blur fallback if backdrop-filter not supported? 
+   Usually modern browsers support it. For now keeping it simple.
+*/
+
+/* Breathe Animation (Container) */
+.breathe {
+    animation: breatheAnim 10s ease-in-out infinite;
+}
+
+@keyframes breatheAnim {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+    }
+}
+
+/* Ripple Effect (Tap) */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: scale(0);
+    animation: rippleAnim 600ms ease-out forwards;
+    pointer-events: none;
+    z-index: -1;
+    /* Behind text */
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .narrative-line,
+    .intro-text,
+    .final-caption,
+    .timer-fade,
+    .focus-overlay {
+        transition: opacity 0.5s ease !important;
+        /* Simple fade only */
+        transform: none !important;
+        animation: none !important;
+        backdrop-filter: none !important;
+    }
+
+    .breathe {
+        animation: none !important;
+    }
+
+    .film-grain {
+        display: none;
+    }
+
+    .line-highlight {
+        animation: none !important;
     }
 }
