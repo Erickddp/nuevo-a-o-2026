@@ -13,7 +13,7 @@ const DEFAULT_CONFIG = {
   pulseStrength: 0.8,
   easterEggEnabled: true,
   interludeEnabled: true,
-  interludeDurationMs: 3000,
+  interludeDurationMs: 4000,
   confettiCount: 80,
   showHomeCta: 'off',
   tapAccelEnabled: true
@@ -47,7 +47,7 @@ export default async function renderGift(params) {
   container.style.flexDirection = 'column';
   container.style.alignItems = 'center';
   container.style.justifyContent = 'center';
-  container.style.minHeight = '60vh';
+  container.style.minHeight = '80vh';
 
   updateVisuals();
   startSpeedDecayLoop();
@@ -222,7 +222,7 @@ export default async function renderGift(params) {
     contentArea.appendChild(introEl);
 
     await waitScaled(100, myRunId, false);
-    introEl.style.opacity = '0.5';
+    introEl.style.opacity = '0.8';
 
     await waitScaled(CONFIG.introMs, myRunId, false);
     await fetchPromise;
