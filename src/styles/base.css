@@ -1,20 +1,42 @@
 @import './theme.css';
 
+:root {
+    /* Premium Palette */
+    --accent: #d4af37;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    /* More subtle */
+    --text: #f0f0f0;
+    --muted: #a0a0a0;
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+
+    --font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+    /* Easing */
+    --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    /* Mobile polish */
 }
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: var(--font-main);
+    color: var(--text);
+    font-family: var(--font-stack);
+    /* Premium System Stack */
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
+    /* Safe Area for iOS Home bar */
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Background Canvas */
@@ -28,67 +50,88 @@ body {
     pointer-events: none;
 }
 
-/* Layout */
+/* Layout - Mobile First Centering */
 #app {
     min-height: 100vh;
+    /* fallback */
+    min-height: 100dvh;
+    /* dynamic viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: var(--space-md);
+    padding-top: max(var(--space-md), env(safe-area-inset-top));
+    padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
     position: relative;
     z-index: 1;
 }
 
 /* UI Components */
 .card {
-    background: var(--glass-bg);
+    background: var(--glass);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 18px;
+    /* Slightly rounder */
     padding: var(--space-lg);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    box-shadow: var(--shadow);
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+
+    /* Responsive Mobile Width */
+    width: 100%;
+    max-width: 520px;
 }
 
 .card:hover {
-    border-color: var(--glass-highlight);
-    box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    /* Fluid typography */
     font-weight: 700;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
     margin-bottom: var(--space-md);
-    background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+    background: linear-gradient(135deg, #fff 10%, #999 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: 1.1;
 }
 
 p {
     line-height: 1.6;
-    color: var(--text-muted);
+    color: var(--muted);
     margin-bottom: var(--space-md);
+    max-width: 60ch;
+    /* Readable length */
 }
 
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 14px 28px;
+    /* Larger touch target */
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    transition: all var(--transition-fast);
+    transition: all 0.2s var(--ease-out);
     border: 1px solid var(--glass-border);
     cursor: pointer;
+
+    /* Focus Accessibility */
+    outline: none;
 }
 
-.btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+.btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.btn:active {
+    transform: scale(0.96);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 /* Utilities */
@@ -97,7 +140,7 @@ p {
 }
 
 .fade-in {
-    animation: fadeIn 0.8s var(--transition-smooth) forwards;
+    animation: fadeIn 0.8s var(--ease-out) forwards;
     opacity: 0;
 }
 
@@ -109,26 +152,31 @@ p {
 
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
 }
 
-/* Narrative Styles */
+/* Narrative Styles - Refined */
 .narrative-line {
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: var(--text-main);
+    font-family: var(--font-stack);
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    /* Fluid font size */
+    font-weight: 600;
+    color: var(--text);
     text-align: center;
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    /* Default transition */
-    max-width: 800px;
+    transform: translateY(14px);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+
+    max-width: min(90vw, 800px);
+    /* Mobile safe width */
     margin: 0 auto;
-    line-height: 1.4;
+    line-height: 1.45;
+    /* Optimal reading height */
     position: relative;
-    /* Optimize for animations */
     will-change: opacity, transform;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    /* Contrast boost on glass */
 }
 
 .narrative-line.active {
@@ -138,50 +186,50 @@ p {
 
 .narrative-line.exit {
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-8px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
-/* Line Highlight Subtle Flash */
 .line-highlight {
-    animation: textGlow 0.4s ease-out forwards;
+    animation: textGlow 0.5s ease-out forwards;
 }
 
 @keyframes textGlow {
     0% {
-        text-shadow: 0 0 0 transparent;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     50% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
     }
 
     100% {
-        text-shadow: 0 0 0 transparent;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 }
 
 .intro-text {
-    font-size: 1rem;
-    color: var(--accent-gold);
+    font-size: 0.9rem;
+    color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 0.2em;
+    /* Cleaner Caps */
     opacity: 0;
     transition: opacity 1.2s ease;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-    /* Subtle gold glow */
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 
 .final-caption {
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    font-size: 0.95rem;
+    color: var(--muted);
     opacity: 0;
     transition: opacity 1s ease;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
 }
 
 .final-caption.warm-glow {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
 
 .timer-fade {
@@ -193,9 +241,7 @@ p {
     opacity: 1;
 }
 
-/* --- Premium Effects & Overlays --- */
-
-/* Film Grain */
+/* Effects - Optimized */
 .film-grain {
     position: fixed;
     top: 0;
@@ -203,13 +249,12 @@ p {
     width: 100%;
     height: 100%;
     z-index: 999;
-    /* Top overlay */
     pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    /* Subtle */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Focus / Blur Overlay */
 .focus-overlay {
     position: fixed;
     top: 0;
@@ -217,25 +262,21 @@ p {
     width: 100%;
     height: 100%;
     z-index: 0;
-    /* Behind content, above bg */
+    /* Optimización móvil: start clear */
     backdrop-filter: blur(0px);
-    /* Start clear */
-    transition: backdrop-filter 1.5s ease;
+    -webkit-backdrop-filter: blur(0px);
+    transition: backdrop-filter 1.5s ease, -webkit-backdrop-filter 1.5s ease;
     pointer-events: none;
 }
 
 .focus-overlay.active {
-    backdrop-filter: blur(4px);
-    /* Narrative focus */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-/* Provide fake blur fallback if backdrop-filter not supported? 
-   Usually modern browsers support it. For now keeping it simple.
-*/
-
-/* Breathe Animation (Container) */
 .breathe {
-    animation: breatheAnim 10s ease-in-out infinite;
+    animation: breatheAnim 12s ease-in-out infinite;
+    /* Slower = more premium */
 }
 
 @keyframes breatheAnim {
@@ -246,53 +287,72 @@ p {
     }
 
     50% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.025);
     }
 }
 
-/* Ripple Effect (Tap) */
 .ripple {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
     transform: scale(0);
     animation: rippleAnim 600ms ease-out forwards;
     pointer-events: none;
     z-index: -1;
-    /* Behind text */
+    will-change: transform, opacity;
 }
 
 @keyframes rippleAnim {
     to {
-        transform: scale(4);
+        transform: scale(3.5);
         opacity: 0;
     }
 }
 
-/* Accessibility: Reduced Motion */
+/* Mobile Low Power Mode (Small screens) */
+@media screen and (max-width: 480px) {
+    .focus-overlay.active {
+        backdrop-filter: blur(2px);
+        /* Cheaper blur */
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    .film-grain {
+        opacity: 0.025;
+    }
+
+    /* Less noise overlapping text */
+    .narrative-line {
+        font-size: 1.5rem;
+        /* readable but large */
+        width: 90%;
+    }
+}
+
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
 
+    *,
     .narrative-line,
     .intro-text,
     .final-caption,
     .timer-fade,
     .focus-overlay {
-        transition: opacity 0.5s ease !important;
-        /* Simple fade only */
-        transform: none !important;
-        animation: none !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
-    .breathe {
+    .breathe,
+    .line-highlight,
+    .ripple {
         animation: none !important;
+        display: none;
     }
 
     .film-grain {
         display: none;
-    }
-
-    .line-highlight {
-        animation: none !important;
     }
 }

@@ -12,12 +12,10 @@ export default async function renderGift(params) {
   container.style.minHeight = '60vh';
 
   // --- Effects Overlays ---
-  // Film Grain
   const noiseOverlay = document.createElement('div');
   noiseOverlay.className = 'film-grain';
   document.body.appendChild(noiseOverlay);
 
-  // Focus Overlay
   const focusOverlay = document.createElement('div');
   focusOverlay.className = 'focus-overlay';
   document.body.appendChild(focusOverlay);
@@ -25,22 +23,31 @@ export default async function renderGift(params) {
   // --- Elements ---
   const contentArea = document.createElement('div');
   contentArea.id = 'narrative-area';
-  contentArea.className = 'breathe'; // Global breathe
+  contentArea.className = 'breathe';
   contentArea.style.textAlign = 'center';
-  contentArea.style.position = 'relative'; // For ripple
+  contentArea.style.position = 'relative';
 
   const timerArea = document.createElement('div');
-  timerArea.className = 'timer-fade'; // Initially hidden
+  timerArea.className = 'timer-fade';
 
   container.appendChild(contentArea);
   container.appendChild(timerArea);
 
-  // --- Tap Ripple Logic ---
+  // --- Tap Ripple Logic (Throttled) ---
+  let lastTap = 0;
   const handleTap = (e) => {
-    // Create Ripple
+    const now = Date.now();
+    // Low power throttle: max 1 per 250ms
+    if (now - lastTap < 250) return;
+    lastTap = now;
+
     const rect = contentArea.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    // Prevent ripple outside nice bounds if needed, but rect is container relative
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     const ripple = document.createElement('div');
     ripple.className = 'ripple';
@@ -50,24 +57,22 @@ export default async function renderGift(params) {
 
     setTimeout(() => ripple.remove(), 700);
 
-    // Micro Vibration (if applicable device support existed, but here visual only)
-    // Visual feedback via minimal glow boost
-    /* We can trigger a quick class on current active line if exists */
+    // Micro visual feedback
     const currentLine = contentArea.querySelector('.narrative-line.active');
     if (currentLine) {
-      // Reset animation trick
       currentLine.classList.remove('line-highlight');
-      void currentLine.offsetWidth; // trigger reflow
+      void currentLine.offsetWidth;
       currentLine.classList.add('line-highlight');
     }
   };
 
-  // Attach tap listener (only active during Act 2 really, but harmless elsewhere)
   container.addEventListener('touchstart', handleTap, { passive: true });
   container.addEventListener('mousedown', handleTap);
 
-  // --- Parallax Logic (Desktop) ---
+  // --- Parallax Logic (Desktop Only) ---
   const handleParallax = (e) => {
+    // Disable on mobile via touch detection approximation or width
+    if (window.innerWidth <= 768) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const x = (e.clientX / window.innerWidth - 0.5) * 10;
@@ -79,29 +84,14 @@ export default async function renderGift(params) {
   };
   document.addEventListener('mousemove', handleParallax);
 
-
   // --- Config ---
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('k');
   const giftId = params.id;
 
-  // --- Clean Up Function ---
-  // We need to remove body overlays when leaving this view
-  // Since we don't have a full component unmount lifecycle in this simple router,
-  // we can rely on next navigation clearing body or ...
-  // ideally, router should handle this, but for now we append to body, 
-  // so let's stick them to container if possible? 
-  // Focus overlay needs to cover screen fixed. 
-  // Let's attach a MutationObserver or just let router clear 'app'.
-  // But these are on body. We must clean them up manually if we navigate away.
-  // PRO-TIP: We'll modify router to clear View specific body appends? 
-  // For simplicity here: we attach them to body, but we can't easily clean up on vanilla router.
-  // ALTERNATIVE: Attach to #app and make #app fit screen? 
-  // Let's attach to #app actually to ensure they get destroyed on view change.
-  // But #app has padding. Let's start overlays inside container then use fixed positioning.
+  // Append overlays
   container.appendChild(noiseOverlay);
   container.appendChild(focusOverlay);
-
 
   // --- Logic Chain ---
   let messageData = null;
@@ -109,29 +99,22 @@ export default async function renderGift(params) {
     .then(data => { messageData = data; })
     .catch(err => { messageData = { error: err }; });
 
-  // 2. State 1: Intro (Hypnosis)
   playIntro();
 
   async function playIntro() {
-    focusOverlay.classList.remove('active'); // Start clear
+    focusOverlay.classList.remove('active');
 
-    // Texto sutil
     const introEl = document.createElement('div');
     introEl.className = 'intro-text';
     introEl.innerText = 'Este mensaje es solo para ti';
     contentArea.appendChild(introEl);
 
-    // Fade In
     await wait(100);
     introEl.style.opacity = '1';
 
-    // Hold 2.5s (Visual silence)
     await wait(2500);
-
-    // Wait for data
     await fetchPromise;
 
-    // Fade Out Intro
     introEl.style.opacity = '0';
     await wait(1000);
     contentArea.innerHTML = '';
@@ -139,14 +122,16 @@ export default async function renderGift(params) {
     if (messageData && messageData.error) {
       showError(messageData.error);
     } else {
-      // Start Act 2
-      focusOverlay.classList.add('active'); // Blur background for reading focus
+      focusOverlay.classList.add('active');
       playMessage(messageData.message);
     }
   }
 
   async function playMessage(fullText) {
-    let lines = fullText.split(/(?:\r\n|\r|\n)/g).map(l => l.trim()).filter(l => l);
+    // Clean quotes just in case server sends them inside string
+    const cleanText = fullText.replace(/^["']|["']$/g, '');
+
+    let lines = cleanText.split(/(?:\r\n|\r|\n)/g).map(l => l.trim()).filter(l => l);
     if (lines.length === 1) {
       lines = lines[0].split(/\. (?=[A-Z¡¿])/).map(l => l.trim() + (l.endsWith('.') ? '' : '.'));
     }
@@ -158,16 +143,22 @@ export default async function renderGift(params) {
       const lineEl = document.createElement('h2');
       lineEl.className = 'narrative-line';
       lineEl.innerText = lineText;
+      // Accessibilty
+      lineEl.setAttribute('aria-live', 'polite');
       contentArea.appendChild(lineEl);
 
       await wait(50);
 
       lineEl.classList.add('active');
-      // Initial flash
       lineEl.classList.add('line-highlight');
 
+      let readTime = Math.max(1500, lineText.length * 40);
 
-      const readTime = Math.max(1500, lineText.length * 40);
+      // Speed up for reduced motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        readTime *= 0.7;
+      }
+
       await wait(readTime);
 
       if (i < lines.length - 1) {
@@ -184,9 +175,8 @@ export default async function renderGift(params) {
   }
 
   async function startClosure(lastLineEl) {
-    // Act 3: Closure
-    focusOverlay.classList.remove('active'); // Return to reality (clear blur)
-    contentArea.classList.remove('breathe'); // Stop heavy breathing
+    focusOverlay.classList.remove('active');
+    contentArea.classList.remove('breathe');
 
     lastLineEl.classList.remove('active');
     lastLineEl.classList.add('exit');
@@ -206,7 +196,6 @@ export default async function renderGift(params) {
     renderMiniCountdown(timerArea);
     timerArea.classList.add('visible');
 
-    // Remove listeners
     document.removeEventListener('mousemove', handleParallax);
     container.removeEventListener('touchstart', handleTap);
     container.removeEventListener('mousedown', handleTap);
@@ -224,11 +213,11 @@ export default async function renderGift(params) {
   function renderMiniCountdown(container) {
     container.innerHTML = `
       <div id="mini-timer" class="card" style="min-width: 280px; text-align:center;">
-         <small style="color: var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Tiempo restante</small>
-         <div class="time-display" style="font-size:2rem; color:var(--accent-gold); margin-top:0.5rem; font-weight:700;"></div>
+         <small style="color: var(--muted); text-transform:uppercase; letter-spacing:1px; font-size: 0.75rem;">Tiempo restante</small>
+         <div class="time-display" style="font-size: clamp(1.5rem, 5vw, 2rem); color:var(--accent); margin-top:0.5rem; font-weight:700;"></div>
       </div>
       <div style="margin-top:2rem;">
-        <a href="/" style="color: var(--text-muted); text-decoration:none; font-size: 0.9rem; border-bottom:1px solid currentColor;">Volver al inicio</a>
+        <a href="/" style="color: var(--muted); text-decoration:none; font-size: 0.9rem; border-bottom:1px solid currentColor;">Volver al inicio</a>
       </div>
     `;
 
