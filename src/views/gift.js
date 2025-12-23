@@ -218,11 +218,11 @@ export default async function renderGift(params) {
     focusOverlay.classList.remove('active');
     const introEl = document.createElement('div');
     introEl.className = 'intro-text';
-    introEl.innerText = 'Este mensaje es solo para ti';
+    introEl.innerText = 'Este mensaje es solo para ti 💌';
     contentArea.appendChild(introEl);
 
     await waitScaled(100, myRunId, false);
-    introEl.style.opacity = '1';
+    introEl.style.opacity = '0.5';
 
     await waitScaled(CONFIG.introMs, myRunId, false);
     await fetchPromise;
