@@ -11,46 +11,43 @@ export async function fetchSecretMessage({ id, token }) {
     }
 
     try {
+        // Codificamos parámetros para evitar issues con caracteres especiales
+        const safeId = encodeURIComponent(id);
+        const safeToken = encodeURIComponent(token);
+
         // Call the Vercel Function
-        const res = await fetch(`/api/message?id=${id}&k=${token}`);
+        const res = await fetch(`/api/message?id=${safeId}&k=${safeToken}`);
 
-        if (res.status === 401) {
-            throw new Error("Acceso no autorizado.");
-        }
-
+        // Si es 401 (o cualquier otro error no-ok), lanzamos error para que la vista muestre "No autorizado"
         if (!res.ok) {
-            throw new Error('Error de conexión con el servidor.');
+            if (res.status === 401) throw new Error("Acceso no autorizado.");
+            throw new Error(`Error del servidor: ${res.status}`);
         }
 
         const data = await res.json();
+
+        // Doble check por seguridad
+        if (!data.authorized) {
+            throw new Error("Acceso no autorizado.");
+        }
+
         return data;
     } catch (error) {
-        console.error("API Error:", error);
+        console.warn("API Error:", error.message);
         throw error;
     }
 }
 
-// Mock Simulator
+// Mock Simulator (Legacy)
 function mockFetch(id, token) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            // Simple verify logic: valid if token is not empty and id exists
-            if (!token || !id) {
-                reject(new Error("Token inválido o faltante."));
-                return;
-            }
-
-            // Simulate "Valid" vs "Invalid" based on some dummy logic
-            // e.g. if token == 'bad' -> fail
-            if (token === 'bad') {
-                reject(new Error("Acceso no autorizado."));
-                return;
-            }
-
+            if (!token || !id) return reject(new Error("Token inválido."));
+            if (token === 'bad') return reject(new Error("No autorizado."));
             resolve({
                 authorized: true,
-                message: "¡Hola! Este es tu mensaje secreto para el 2026. Espero que este año sea increíble para ti. Guarda este enlace, quizás cambie..."
+                message: "MOCK: Mensaje secreto demo."
             });
-        }, 1500); // Simulate network latency
+        }, 1000);
     });
 }

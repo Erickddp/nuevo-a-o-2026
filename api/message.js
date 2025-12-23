@@ -1,34 +1,44 @@
 export default function handler(req, res) {
-    // 1. Configurar Headers (CORS opcional, Cache control)
+    // Headers de seguridad y caché
+    res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
 
-    // 2. Solo permitir GET
+    // Solo permitir GET
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // 3. Extraer parámetros (Vercel parsea query string automáticamente)
+    // Extraer parámetros
     const { id, k } = req.query;
 
-    // 4. "DB" en memoria (Placeholders editables)
-    // CLAVE: ID del regalo (ej: '1', 'g01', 'novio')
-    // VALOR: { token: 'SECRETO', message: 'TEXTO' }
+    // Validación básica de entrada
+    if (!id || !k) {
+        return res.status(401).json({ authorized: false });
+    }
+
+    // Base de datos de regalos (13 placeholders)
     const GIFTS = {
-        '1': { token: 'TKN_DEMO_01', message: '¡Hola! Este es el mensaje real del servidor para el Regalo #1.' },
-        'g02': { token: 'ABC_123', message: 'Mensaje especial para g02. El futuro es brillante.' },
-        'mvp': { token: 'supersecret', message: 'Mensaje exclusivo VIP. ¡Feliz 2026!' }
-        // Agregar más aquí...
+        "g01": { token: "TOKEN_01", message: "MESSAGE_01" },
+        "g02": { token: "TOKEN_02", message: "MESSAGE_02" },
+        "g03": { token: "TOKEN_03", message: "MESSAGE_03" },
+        "g04": { token: "TOKEN_04", message: "MESSAGE_04" },
+        "g05": { token: "TOKEN_05", message: "MESSAGE_05" },
+        "g06": { token: "TOKEN_06", message: "MESSAGE_06" },
+        "g07": { token: "TOKEN_07", message: "MESSAGE_07" },
+        "g08": { token: "TOKEN_08", message: "MESSAGE_08" },
+        "g09": { token: "TOKEN_09", message: "MESSAGE_09" },
+        "g10": { token: "TOKEN_10", message: "MESSAGE_10" },
+        "g11": { token: "TOKEN_11", message: "MESSAGE_11" },
+        "g12": { token: "TOKEN_12", message: "MESSAGE_12" },
+        "g13": { token: "TOKEN_13", message: "MESSAGE_13" }
     };
 
     try {
-        // 5. Validación
-        // a) ¿Existe el ID?
         const gift = GIFTS[id];
 
-        // b) ¿Existe regalo y el token coincide exactamente?
-        // Nota: En producción real, usar timingSafeEqual para evitar timing attacks si fuera crítico.
+        // Validación estricta: existe el ID y el token coincide exactamente
         if (gift && gift.token === k) {
             return res.status(200).json({
                 authorized: true,
@@ -36,16 +46,13 @@ export default function handler(req, res) {
             });
         }
 
-        // 6. Fallo de autorización (Token incorrecto o ID no existe)
-        // Retardamos un poco la respuesta para mitigar fuerza bruta (simulado)
-        // await new Promise(r => setTimeout(r, 200)); 
-
+        // Si falla cualquier validación
         return res.status(401).json({
             authorized: false
         });
 
     } catch (error) {
-        console.error("Server Error:", error);
+        // Error interno (no exponemos detalles sensibles)
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
