@@ -130,6 +130,31 @@ body.focus-mode .narrative-line {
     max-width: 520px;
 }
 
+/* CLOCK CHASE ANIMATION */
+@keyframes clockChasePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: var(--shadow);
+        border-color: var(--glass-border);
+    }
+
+    50% {
+        transform: scale(1.005);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: var(--shadow);
+        border-color: var(--glass-border);
+    }
+}
+
+.clock-chase.pulse-once {
+    animation: clockChasePulse 0.8s ease-out forwards;
+}
+
 h1 {
     font-size: clamp(2rem, 5vw, 2.5rem);
     font-weight: 700;
@@ -669,12 +694,14 @@ p {
     .interlude-2026,
     .year-2026,
     .speed-boost,
-    .exit-btn {
+    .exit-btn,
+    .clock-chase.pulse-once {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+        animation: none !important;
     }
 
     .breathe,

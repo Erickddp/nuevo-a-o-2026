@@ -24,7 +24,7 @@ export default async function renderHome() {
 
   // Clock Card
   const countdownCard = document.createElement('div');
-  countdownCard.className = 'card clock-card';
+  countdownCard.className = 'card clock-card clock-chase'; // Added clock-chase base class
 
   // NEW: Split Structure
   const daysRow = document.createElement('div');
@@ -54,6 +54,8 @@ export default async function renderHome() {
 
   // Clock logic
   let lastSec = -1;
+  // const PULSE_EVERY_2S = false; // Toggle if needed
+
   const updateVisuals = () => {
     const data = getClockData();
 
@@ -62,13 +64,21 @@ export default async function renderHome() {
       timeVal.innerText = `${data.hours}h ${data.minutes}m ${data.seconds}s`;
       daysLabel.innerText = 'DÍAS RESTANTES';
 
-      // Tick Animation
+      // Tick Animation & Card Pulse
       if (data.seconds !== lastSec) {
+        // 1. Text Tick
         timeVal.animate([
           { transform: 'scale(1)', opacity: 0.8 },
           { transform: 'scale(1.05)', opacity: 1 },
           { transform: 'scale(1)', opacity: 0.8 }
         ], { duration: 200, easing: 'ease-out' });
+
+        // 2. Card Chase Pulse (Every Second)
+        // Reset animation to trigger it again
+        countdownCard.classList.remove('pulse-once');
+        void countdownCard.offsetWidth; // Force Reflow
+        countdownCard.classList.add('pulse-once');
+
         lastSec = data.seconds;
       }
 
