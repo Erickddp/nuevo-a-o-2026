@@ -1,0 +1,29 @@
+:root {
+  /* Colors - Premium Dark & Gold/Silver */
+  --bg-color: #050505;
+  --text-main: #f0f0f0;
+  --text-muted: #a0a0a0;
+  --accent-gold: #d4af37;
+  --accent-silver: #c0c0c0;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+  
+  /* Status Colors */
+  --success: #4cd964;
+  --error: #ff3b30;
+  --loading: #007aff;
+
+  /* Fonts */
+  --font-main: 'Outfit', sans-serif;
+
+  /* Spacing */
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
