@@ -493,9 +493,63 @@ p {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Remove old CTA styles */
-.home-cta {
-    display: none !important;
+/* Premium CTA */
+.cta-container {
+    margin-top: 4rem;
+    /* Spacer to push it down */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+
+.btn-premium-glass {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 20;
+    cursor: pointer;
+}
+
+.btn-premium-glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.btn-premium-glass:active {
+    transform: scale(0.96) translateY(0);
+}
+
+@media (max-width: 600px) {
+    .btn-premium-glass {
+        height: 36px;
+        padding: 0 20px;
+        font-size: 11px;
+    }
+
+    .cta-container {
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
 }
 
 /* Dev Panel */

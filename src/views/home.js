@@ -50,17 +50,26 @@ export default async function renderHome() {
   };
   requestAnimationFrame(updateTimer);
 
+  const ctaContainer = document.createElement('div');
+  ctaContainer.className = 'cta-container';
+
   const startBtn = document.createElement('a');
-  startBtn.className = 'btn';
+  startBtn.className = 'btn-premium-glass';
   startBtn.innerText = 'ABRIR MI MENSAJE';
-  startBtn.href = '/gift/123?k=test'; // Hardcoded for demo
-  startBtn.style.marginTop = '2rem';
-  startBtn.style.textAlign = 'center';
+  startBtn.href = '/mensaje';
+  // Styles handled by CSS class .btn-premium-glass and .cta-container
+
+  startBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    import('../lib/router.js').then(m => m.navigateTo('/mensaje'));
+  });
+
+  ctaContainer.appendChild(startBtn);
 
   container.appendChild(title);
   container.appendChild(dynamicMsg);
   container.appendChild(countdownCard);
-  container.appendChild(startBtn);
+  container.appendChild(ctaContainer);
 
   return container;
 }

@@ -5,6 +5,7 @@
 
 const routes = {
     '/': () => import('../views/home.js').then(m => m.default),
+    '/mensaje': () => import('../views/nfc.js').then(m => m.default),
     '/g/:id': () => import('../views/gift.js').then(m => m.default),
     '/404': () => import('../views/notfound.js').then(m => m.default)
 };
@@ -12,6 +13,11 @@ const routes = {
 export async function initRouter() {
     window.addEventListener('popstate', handleLocation);
     handleLocation(); // process initial URL
+}
+
+export function navigateTo(url) {
+    window.history.pushState({}, "", url);
+    handleLocation();
 }
 
 async function handleLocation() {
@@ -50,5 +56,5 @@ function matchRoute(path) {
     }
 
     // Fallback
-    return { loader: routes['/404'], params: {} };
+    return { loader: routes['404'] || routes['/404'], params: {} };
 }
