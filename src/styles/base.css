@@ -473,13 +473,56 @@ p {
 }
 
 .intro-text {
-    font-size: 0.9rem;
+    font-size: clamp(1.15rem, 4.8vw, 1.65rem);
+    font-weight: 600;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
+    text-align: center;
+    line-height: 1.25;
+    margin: 0 0 1.1rem 0;
+    padding: 0 0.75rem;
     opacity: 0;
-    transition: opacity 1.2s ease;
-    text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+    transform: translateY(10px);
+    transition: opacity 650ms ease, transform 650ms ease;
+    text-shadow: 0 0 14px rgba(212, 175, 55, 0.22);
+}
+
+.intro-text.visible {
+    opacity: 0.88;
+    transform: translateY(0);
+}
+
+.intro-text.reveal {
+    animation: wowPulseAnim 700ms ease-out 1;
+}
+
+@keyframes introDots {
+    0% {
+        content: '';
+    }
+
+    25% {
+        content: '.';
+    }
+
+    50% {
+        content: '..';
+    }
+
+    75% {
+        content: '...';
+    }
+}
+
+.intro-text.loading::after {
+    content: '';
+    display: inline-block;
+    width: 2ch;
+    text-align: left;
+    margin-left: 0.25ch;
+    animation: introDots 1.35s steps(1, end) infinite;
+    opacity: 0.9;
 }
 
 /* Closure elements */
@@ -796,6 +839,7 @@ p {
     .home-sticker,
     .narrative-line,
     .intro-text,
+    .intro-text.loading::after,
     .final-caption,
     .final-quote,
     .timer-fade,
@@ -812,6 +856,16 @@ p {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         animation: none !important;
+    }
+
+    .intro-text {
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .intro-text.loading::after {
+        animation: none !important;
+        content: '...' !important;
     }
 
     .breathe,
@@ -846,24 +900,6 @@ p {
 
 
 /* Intro: secreto + familiar */
-.intro-text {
-    font-size: clamp(1.35rem, 5.2vw, 1.95rem);
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
-    text-align: center;
-    line-height: 1.35;
-    letter-spacing: 0.015em;
-
-    margin: 0 0 1.1rem 0;
-    padding: 0 0.75rem;
-
-    /* “calidez” sutil, sin neon */
-    text-shadow: 0 0 18px rgba(212, 175, 55, 0.10);
-
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 650ms ease, transform 650ms ease;
-}
 
 .intro-text.visible {
     opacity: 0.92;

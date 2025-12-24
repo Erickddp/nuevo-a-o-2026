@@ -217,34 +217,36 @@ export default async function renderGift(params) {
 
     focusOverlay.classList.remove('active');
     const introEl = document.createElement('div');
-    introEl.className = 'intro-text';
-    introEl.innerText = 'Esto es para';
+    introEl.className = 'intro-text loading';
+    introEl.innerText = 'Esto es para...';
     contentArea.appendChild(introEl);
 
-
-
+    // Initial fade setup
     requestAnimationFrame(() => introEl.classList.add('visible'));
-
-
-
-
-
-
-    await waitScaled(100, myRunId, false);
-    introEl.style.opacity = '0.8';
 
     await waitScaled(CONFIG.introMs, myRunId, false);
     await fetchPromise;
 
     if (myRunId !== currentRunId) return;
 
-    introEl.style.opacity = '0';
-    await waitScaled(1000, myRunId, false);
-    contentArea.innerHTML = '';
-
     if (messageData && messageData.error) {
       showError(messageData.error);
     } else {
+      // Reveal recipient logic
+      const fullText = (messageData.message || "").toLowerCase();
+      const isFamily = fullText.includes('ustedes') || fullText.includes('familia') || fullText.includes('todos');
+
+      introEl.innerText = isFamily ? 'Esto es para ustedes' : 'Esto es para ti';
+      introEl.classList.remove('loading');
+      introEl.classList.add('reveal');
+
+      await waitScaled(1400, myRunId, false);
+
+      // Smooth exit
+      introEl.classList.remove('visible');
+      await waitScaled(800, myRunId, false);
+      contentArea.innerHTML = '';
+
       focusOverlay.classList.add('active');
       playMessage(messageData.message);
     }
