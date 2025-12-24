@@ -218,7 +218,7 @@ export default async function renderGift(params) {
     focusOverlay.classList.remove('active');
     const introEl = document.createElement('div');
     introEl.className = 'intro-text loading';
-    introEl.innerText = 'Esto es para...';
+    introEl.innerText = 'Esto es para';
     contentArea.appendChild(introEl);
 
     // Initial fade setup
@@ -236,7 +236,6 @@ export default async function renderGift(params) {
       const fullText = (messageData.message || "").toLowerCase();
       const isFamily = fullText.includes('ustedes') || fullText.includes('familia') || fullText.includes('todos');
 
-      introEl.innerText = isFamily ? 'Esto es para ustedes' : 'Esto es para ti';
       introEl.classList.remove('loading');
       introEl.classList.add('reveal');
 
