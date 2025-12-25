@@ -108,7 +108,7 @@ Feliz.`
 
         g08: {
             token: "b2c9a6e7f0d4a1e8c3b5f9d7a2e6",
-            message: `Para Tíos Óscar y Sandra, y familia:
+            message: `Para Tío Óscar y Tía Sandra:
 Cuando se trata de agradecer,
 las palabras no alcanzan.
 Toda mi vida, tío, tía,
