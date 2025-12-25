@@ -186,9 +186,14 @@ Feliz.`
 
         g15: {
             token: "b6d0f2a9c4e7f1d3a8b5c2e9f0d7a6c1e8b3d9f4a0c5e2b7d1f8a3c6e9",
-            message: `Para ti:
-Este mensaje queda abierto
-por si olvidé a alguien importante.
+            message: `Para Tia Sandra:
+No hay persona más fuerte 
+y resiliente que conozca.
+Tu persistencia y estilo de vida
+motivan a muchas personas 
+Que tú fuerza permanezca siempre 
+Te deseo mucha salud y prosperidad 
+este año que viene y muchos años mas
 Feliz.`
         }
     };
