@@ -14,7 +14,7 @@ const DEFAULT_CONFIG = {
   easterEggEnabled: true,
   interludeEnabled: true,
   interludeDurationMs: 4000,
-  confettiCount: 80,
+  confettiCount: 100,
   showHomeCta: 'off',
   tapAccelEnabled: true
 };

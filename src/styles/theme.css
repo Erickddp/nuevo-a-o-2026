@@ -7,7 +7,7 @@
   --text-main: #f0f0f0;
   --text-muted: #a8a09a;
   /* Warmer grey */
-  --accent-gold: #e5c567;
+  --accent-gold: #00873a;
   /* Softer gold */
 
   --glass-bg: rgba(255, 245, 235, 0.05);
@@ -28,12 +28,12 @@
 
 /* Holiday Mode (Dec) */
 [data-theme="holiday"] {
-  --bg-color: #1a0505;
+  --bg-color: #4f1010;
   /* Deep rich wine/red-black */
   --bg-gradient-top: radial-gradient(circle at 50% 0%, rgba(255, 50, 50, 0.15) 0%, transparent 70%);
   --accent-gold: #ffcf40;
   /* Golden yellow */
-  --glass-bg: rgba(255, 220, 220, 0.06);
+  --glass-bg: rgba(234, 195, 195, 0.06);
 }
 
 /* New Year Mode (Dec 31 - Jan 2) */

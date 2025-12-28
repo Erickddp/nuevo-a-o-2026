@@ -16,22 +16,22 @@ const DEFAULT_CONFIG = {
     },
     density: {
         floatCountDesktop: 120,
-        floatCountMobile: 80,
+        floatCountMobile: 90,
         bokehCountDesktop: 120,
-        bokehCountMobile: 100,
+        bokehCountMobile: 90,
         sparklesCountDesktop: 35,
-        sparklesCountMobile: 100,
+        sparklesCountMobile: 90,
         maxParticles: 100
     },
     visuals: {
         alphaMultiplierDesktop: 0.65,
-        alphaMultiplierMobile: 5.95,
+        alphaMultiplierMobile: 9.95,
         sizeRanges: {
             float: { min: 1, max: 2.5 },
             bokeh: { min: 15, max: 25 },
             sparkles: { min: 0.5, max: 1.8 }
         },
-        backgroundOpacityGlobal: 0.8
+        backgroundOpacityGlobal: 0.1
     },
     motion: {
         baseSpeed: {
@@ -41,7 +41,7 @@ const DEFAULT_CONFIG = {
         },
         driftStrength: 0.95,
         friction: 0.96,
-        wrapBehavior: "wrap" // wrap vs reset
+        wrapBehavior: "reset" // wrap vs reset
     },
     interaction: {
         pointerRadiusDesktop: 260,
