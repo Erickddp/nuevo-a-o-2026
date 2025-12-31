@@ -153,3 +153,8 @@ Para armando:
 Que esta luz acompañe tus días y te recuerde que siempre hay camino por delante.
 Gracias por estar, por compartir y por ser parte de mi historia.
 Feliz.
+
+g15
+
+Para :
+limpio po si olvide a alguien. 

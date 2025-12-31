@@ -107,10 +107,17 @@ Feliz.`
 
         g05: {
             token: "f1c8a9e2b6d7a0f4e3c5b9d8a6e7f2c1",
-            message: `Para :
+            message: `Para Zoe y familia:
 
-            disponible
+Te deseo un año lleno de salud, tranquilidad
+y muchos buenos momentos para ti y los tuyos.
 
+Que Emi crezca rodeado de cariño, cuidado
+y todo lo bueno que ustedes le dan cada día.
+
+Felicidades por tu fuerza y resiliencia de este año.
+Que el próximo año venga con calma, sonrisas
+y cosas buenas para toda la familia.
 
 
 Feliz.`
