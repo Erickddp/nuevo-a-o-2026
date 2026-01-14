@@ -71,7 +71,7 @@ export default async function renderAcceso() {
 
     nameInput = document.createElement('input');
     nameInput.type = 'text';
-    nameInput.placeholder = 'Ej. Tío Lalo';
+    nameInput.placeholder = 'Ej. tu nombre';
     nameInput.style.cssText = inputStyle;
 
     nameGroup.appendChild(nameLabel);
