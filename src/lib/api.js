@@ -66,3 +66,18 @@ function mockFetch(id, token, isDev = false) {
         }, 1000);
     });
 }
+
+export async function checkManualAccess({ name, pin }) {
+
+
+    try {
+        const res = await fetch('/api/access', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, pin })
+        });
+        return await res.json();
+    } catch (e) {
+        throw new Error("Error de conexión");
+    }
+}

@@ -19,7 +19,7 @@ export default async function renderHome() {
   if (recipientName) {
     title.innerHTML = `<span class="home-greeting">HOLA, ${recipientName.toUpperCase()}</span>RUMBO AL 2026`;
   } else {
-    title.innerText = 'RUMBO AL 2026';
+    title.innerText = 'HOLA 2026 ✨';
   }
 
   // Accent Line
@@ -33,7 +33,7 @@ export default async function renderHome() {
 
   const sticker = document.createElement('span');
   sticker.className = 'home-sticker';
-  sticker.innerText = 'NO ES CUENTA ATRÁS';
+  sticker.innerText = 'NO ES CUENTA ATRÁS. ES ARRANQUE.';
 
   const dynamicMsg = document.createElement('p');
   dynamicMsg.className = 'home-subtitle';

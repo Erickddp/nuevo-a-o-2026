@@ -905,3 +905,110 @@ p {
     opacity: 0.92;
     transform: translateY(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.home-sticker {
+    display: inline-block;
+    max-width: min(92vw, 520px);
+    padding: 8px 14px;
+    border-radius: 999px;
+
+    font-size: clamp(11px, 1.2vw + 8px, 14px);
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+
+    text-align: center;
+    white-space: normal;
+    /* permite 2 renglones */
+    overflow-wrap: anywhere;
+    /* evita desbordes raros */
+}
+
+@media (max-width: 420px) {
+    .home-sticker {
+        padding: 7px 12px;
+        max-width: 88vw;
+    }
+}
+
+/* Fallback CTA */
+.fallback-cta {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.2rem 2rem;
+    margin: 1rem 0 2rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+}
+
+.fallback-cta:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.fallback-cta__title {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.fallback-cta__sub {
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.pin-hint {
+    display: flex;
+    gap: 8px;
+    margin: 0.2rem 0;
+}
+
+.pin-hint__digit {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+    display: block;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+    font-size: 0;
+}
+
+.pin-hint__digit.active {
+    background: var(--accent);
+    transform: scale(1.4);
+    box-shadow: 0 0 10px var(--accent);
+}

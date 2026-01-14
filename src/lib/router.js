@@ -6,6 +6,7 @@
 const routes = {
     '/': () => import('../views/home.js').then(m => m.default),
     '/mensaje': () => import('../views/nfc.js').then(m => m.default),
+    '/acceso': () => import('../views/acceso.js').then(m => m.default),
     '/g/:id': () => import('../views/gift.js').then(m => m.default),
     '/404': () => import('../views/notfound.js').then(m => m.default)
 };

@@ -149,6 +149,7 @@ export function getClockData() {
     return { mode: 'COUNTDOWN', days, hours, minutes, seconds };
   }
 
+
   // 2. PROGRESS (Post-2026)
   const offsetCurrent = getTZOffsetMs('America/Mexico_City', now);
   const cdmxWallMs = nowMs + offsetCurrent;
@@ -171,17 +172,141 @@ export function getClockData() {
   };
 }
 
+export const getCountdown = getClockData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const MESSAGES_2026 = {
+
+  // ENERO
   "2026-01-01": "Hoy empieza. Hazlo real.",
+  "2026-01-06": "Compartir también es una forma de amar.",
+  "2026-01-15": "Hoy se celebra una vida que suma. Que el día sea ligero y sincero.",
+
+  // FEBRERO
+  "2026-02-02": "Tradición es volver al origen sin dejar de avanzar.",
   "2026-02-14": "El amor también se construye.",
+
+  // MARZO
+  "2026-03-08": "Reconocer la fuerza también es un acto de respeto.",
   "2026-03-21": "Lo que siembras hoy, te encuentra mañana.",
+
+  // ABRIL
+  "2026-04-02": "La memoria también educa.",
+  "2026-04-30": "La alegría simple también es importante.",
+
+  // MAYO
+  "2026-05-01": "Todo esfuerzo deja huella.",
   "2026-05-10": "Gracias por todo, mamá.",
+  "2026-05-15": "Aprender cambia destinos.",
+
+  // JUNIO
+  "2026-06-21": "A mitad del camino, ajusta el rumbo.",
+
+  // JULIO
+  "2026-07-01": "No todo progreso se nota de inmediato.",
+
+  // AGOSTO
+  "2026-08-12": "Celebrar a quien empuja el futuro también importa.",
+
+  // SEPTIEMBRE
+  "2026-09-10": "Elegir bien también es un acto de libertad.",
+  "2026-09-15": "La identidad se honra con acciones.",
   "2026-09-16": "La libertad se honra construyendo.",
-  "2026-10-31": "No le temas a lo oscuro: entiende tu sombra.",
+
+  // OCTUBRE
+  "2026-10-12": "Mirar atrás también ayuda a entender.",
+  "2026-10-31": "No temas a lo oscuro: entiende tu sombra.",
+
+  // NOVIEMBRE
   "2026-11-02": "Lo que amaste, vive en lo que haces.",
+  "2026-11-20": "Cuestionar también es avanzar.",
+
+  // DICIEMBRE
+  "2026-12-12": "La fe, para muchos, también es esperanza.",
   "2026-12-24": "Hoy también cuenta. Abraza el presente.",
   "2026-12-31": "Cierra fuerte. Mañana empieza otra versión de ti."
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function toISODate(y, mIndex, d) {
   const mm = String(mIndex + 1).padStart(2, '0');

@@ -2,17 +2,17 @@
 import { navigateTo } from '../lib/router.js';
 
 export default async function renderNfc() {
-    const container = document.createElement('div');
-    container.className = 'container fade-in';
-    container.style.width = '100%';
-    container.style.display = 'flex';
-    container.style.flexDirection = 'column';
-    container.style.alignItems = 'center';
-    container.style.textAlign = 'center';
-    container.style.paddingTop = '2rem';
+  const container = document.createElement('div');
+  container.className = 'container fade-in';
+  container.style.width = '100%';
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  container.style.alignItems = 'center';
+  container.style.textAlign = 'center';
+  container.style.paddingTop = '2rem';
 
-    const style = document.createElement('style');
-    style.textContent = `
+  const style = document.createElement('style');
+  style.textContent = `
     .fade-in {
       animation: fadeIn 0.8s ease-out forwards;
       opacity: 0;
@@ -142,34 +142,34 @@ export default async function renderNfc() {
     .step-item:nth-child(2) { animation-delay: 0.4s; }
     .step-item:nth-child(3) { animation-delay: 0.6s; }
   `;
-    container.appendChild(style);
+  container.appendChild(style);
 
-    // HEADER
-    const title = document.createElement('h1');
-    title.innerText = 'Activar NFC';
-    title.style.marginBottom = '0.5rem';
-    container.appendChild(title);
+  // HEADER
+  const title = document.createElement('h1');
+  title.innerText = 'NFC';
+  title.style.marginBottom = '0.5rem';
+  container.appendChild(title);
 
-    const subtitle = document.createElement('p');
-    subtitle.innerText = 'Buscando estampa...';
-    subtitle.style.color = 'var(--accent)';
-    subtitle.style.fontSize = '0.9rem';
-    subtitle.style.letterSpacing = '1px';
-    subtitle.style.textTransform = 'uppercase';
-    subtitle.className = 'blink';
-    subtitle.style.width = '100%';
-    subtitle.style.textAlign = 'center';
-    container.appendChild(subtitle);
+  const subtitle = document.createElement('p');
+  subtitle.innerText = 'Buscando estampa...';
+  subtitle.style.color = 'var(--accent)';
+  subtitle.style.fontSize = '0.9rem';
+  subtitle.style.letterSpacing = '1px';
+  subtitle.style.textTransform = 'uppercase';
+  subtitle.className = 'blink';
+  subtitle.style.width = '100%';
+  subtitle.style.textAlign = 'center';
+  container.appendChild(subtitle);
 
-    // VISUAL STAGE
-    const stage = document.createElement('div');
-    stage.className = 'nfc-stage';
+  // VISUAL STAGE
+  const stage = document.createElement('div');
+  stage.className = 'nfc-stage';
 
-    // Tag with ripples
-    const tag = document.createElement('div');
-    tag.className = 'nfc-tag';
-    // Simple NFC/Wave icon inside tag
-    tag.innerHTML = `
+  // Tag with ripples
+  const tag = document.createElement('div');
+  tag.className = 'nfc-tag';
+  // Simple NFC/Wave icon inside tag
+  tag.innerHTML = `
     <svg viewBox="0 0 24 24">
       <path d="M4 20h16v2H4zM4 2h16v2H4zm9 7h-2v6h2zm5-3.6L16.6 6.8c1.3 1.3 1.3 3.3 0 4.6L18 12.8c2.1-2.1 2.1-5.5 0-7.4zm-10.6 0L8.8 6.8c-1.3 1.3-1.3 3.3 0 4.6L7.4 12.8c-2.1-2.1-2.1-5.5 0-7.4z"/>
     </svg>
@@ -178,45 +178,86 @@ export default async function renderNfc() {
     <div class="ripple-ring"></div>
   `;
 
-    // Phone
-    const phone = document.createElement('div');
-    phone.className = 'phone-icon';
+  // Phone
+  const phone = document.createElement('div');
+  phone.className = 'phone-icon';
 
-    stage.appendChild(tag);
-    stage.appendChild(phone);
-    container.appendChild(stage);
+  stage.appendChild(tag);
+  stage.appendChild(phone);
+  container.appendChild(stage);
 
-    // STEPS
-    const steps = document.createElement('ul');
-    steps.className = 'step-list';
+  // STEPS
+  const steps = document.createElement('ul');
+  steps.className = 'step-list';
 
-    const stepData = [
-        'Activa NFC o Bluetooth',
-        'Acerca tu teléfono',
-        'Toca la estampa'
-    ];
+  const stepData = [
+    'Activa tu NFC',
+    'Acerca tu teléfono',
+    'Toca tu estampa'
+  ];
 
-    stepData.forEach((text, idx) => {
-        const li = document.createElement('li');
-        li.className = 'step-item';
-        li.innerHTML = `
+  stepData.forEach((text, idx) => {
+    const li = document.createElement('li');
+    li.className = 'step-item';
+    li.innerHTML = `
       <span class="step-num">${idx + 1}</span>
       <span>${text}</span>
     `;
-        steps.appendChild(li);
-    });
-    container.appendChild(steps);
+    steps.appendChild(li);
+  });
+  container.appendChild(steps);
 
-    // BACK BUTTON
-    const backBtn = document.createElement('button');
-    backBtn.className = 'btn';
-    backBtn.innerText = 'Volver';
-    backBtn.style.marginTop = '3rem';
-    backBtn.onclick = (e) => {
-        e.preventDefault();
-        navigateTo('/');
-    };
-    container.appendChild(backBtn);
+  // FALLBACK CTA
+  const fallbackCta = document.createElement('button');
+  fallbackCta.className = 'fallback-cta';
+  fallbackCta.onclick = (e) => {
+    e.preventDefault();
+    navigateTo('/acceso');
+  };
 
-    return container;
+  const fbTitle = document.createElement('span');
+  fbTitle.className = 'fallback-cta__title';
+  fbTitle.innerText = '¿No funciona el NFC?';
+
+  const fbSub = document.createElement('span');
+  fbSub.className = 'fallback-cta__sub';
+  fbSub.innerText = 'Entra con Nombre y PIN';
+
+  // Pin Hint Animation
+  const pinHint = document.createElement('div');
+  pinHint.className = 'pin-hint';
+  for (let i = 0; i < 4; i++) {
+    const d = document.createElement('span');
+    d.className = 'pin-hint__digit';
+    d.innerText = '•';
+    pinHint.appendChild(d);
+  }
+
+  // Animation logic for digits
+  const digitInterval = setInterval(() => {
+    if (!document.body.contains(pinHint)) { clearInterval(digitInterval); return; }
+    const digits = pinHint.querySelectorAll('.pin-hint__digit');
+    digits.forEach(d => d.className = 'pin-hint__digit'); // reset
+    const active = Math.floor(Math.random() * 4);
+    digits[active].classList.add('active');
+  }, 450);
+
+  fallbackCta.appendChild(fbTitle);
+  fallbackCta.appendChild(pinHint);
+  fallbackCta.appendChild(fbSub);
+
+  container.appendChild(fallbackCta);
+
+  // BACK BUTTON
+  const backBtn = document.createElement('button');
+  backBtn.className = 'btn';
+  backBtn.innerText = 'Volver';
+  backBtn.style.marginTop = '3rem';
+  backBtn.onclick = (e) => {
+    e.preventDefault();
+    navigateTo('/');
+  };
+  container.appendChild(backBtn);
+
+  return container;
 }
