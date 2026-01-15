@@ -22,19 +22,19 @@ export default function handler(req, res) {
         // Access Database (Mock)
         // Add variations of names to ensure easy access
         const ACCESS_DB = [
-            { ids: ['g01'], names: ['papa', 'padre', 'eugenio'], pin: '0000' },
-            { ids: ['g02'], names: ['diego', 'diego y familia', "hermano"], pin: '0000' },
-            { ids: ['g03'], names: ['tia elsa', 'elsa'], pin: '0000' },
-            { ids: ['g04'], names: ['mariana', 'mariana y familia'], pin: '0000' },
-            { ids: ['g05'], names: ['zoe', 'zoe y familia', 'emi'], pin: '0000' },
+            { ids: ['g01'], names: ['papa', 'padre', 'eugenio'], pin: '0001' },
+            { ids: ['g02'], names: ['diego', 'diego y familia', "hermano"], pin: '0002' },
+            { ids: ['g03'], names: ['tia elsa', 'elsa'], pin: '0003' },
+            { ids: ['g04'], names: ['mariana', 'mariana y familia'], pin: '1021' },
+            { ids: ['g05'], names: ['zoe', 'zoe y familia', 'emi'], pin: '1225' },
             // g06, g07 available
-            { ids: ['g08'], names: ['tio oscar', 'oscar'], pin: '0000' },
+            { ids: ['g08'], names: ['tio oscar', 'oscar'], pin: '1026' },
             // g09, g10 available
-            { ids: ['g11'], names: ['mama', 'madre', 'paty'], pin: '0000' },
-            { ids: ['g12'], names: ['tio lalo', 'lalo', 'eduardo'], pin: '0000' },
-            { ids: ['g13'], names: ['daniel', 'dani'], pin: '0000' },
-            { ids: ['g14'], names: ['armando'], pin: '0000' },
-            { ids: ['g15'], names: ['tia sandra', 'sandra'], pin: '0000' }
+            { ids: ['g11'], names: ['mama', 'madre', 'paty'], pin: '2000' },
+            { ids: ['g12'], names: ['tio lalo', 'lalo', 'eduardo'], pin: '1212' },
+            { ids: ['g13'], names: ['daniel', 'dani'], pin: '9999' },
+            { ids: ['g14'], names: ['armando'], pin: '1225' },
+            { ids: ['g15'], names: ['tia sandra', 'sandra'], pin: '1501' }
         ];
 
         // Find user
