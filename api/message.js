@@ -54,24 +54,36 @@ export default function handler(req, res) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     const GIFTS = {
+
         g01: {
             token: "9f3c2b8e7a6d4c1e0a9b5f8d3e2c7a1f4b6d9e0c2a8f7",
             message: `Para Papá:
-Comenzar este 2026 también es mirar atrás
-y reconocer todo lo que me enseñaste sin decirlo.
+A veces no hace falta decir mucho
+para aprender lo importante.
 
-Tu forma de vivir, de cumplir y de sostener
-sigue siendo una referencia para mí.
-Mucho de lo que soy viene de ahí.
+Tu forma de estar, de cumplir
+y de seguir adelante
+me ha enseñado más de lo que imaginas.
 
-Este año te deseo calma, salud
-y tiempo para disfrutar lo que has construido.
-Que vivas a tu ritmo, como quieres,
-con la tranquilidad que mereces.
+Ojalá este tiempo se sienta más tranquilo,
+más a tu ritmo.
+¿Te estás dando chance de disfrutarlo?
 
 Yo sigo avanzando,
-y eso también es gracias a ti.
+y mucho de eso viene de ti.
 
 Feliz.`
         },
@@ -79,19 +91,16 @@ Feliz.`
         g02: {
             token: "c8a1f3e7b6d2a9e0c4f8d5b7e1a3c9f6d2a8b0e4f7c1",
             message: `Para Diego y familia:
-Arrancar 2026 es otra oportunidad
-para seguir creciendo juntos.
+Qué gusto seguir compartiendo el camino.
 
-Les deseo salud, estabilidad
-y muchos momentos tranquilos en familia.
-Que Liam siga creciendo rodeado de cariño,
-ejemplo y buena energía.
+Que estos días se sientan tranquilos,
+con salud y momentos buenos en familia.
+Liam va creciendo rodeado de lo mejor,
+y eso se nota.
 
 Sabes que cuentan conmigo,
-para lo bueno, para los proyectos
-y para lo que venga.
-
-Vamos con todo este año.
+para lo cotidiano y para lo que se vaya armando.
+¿Cómo va arrancando todo por allá?
 
 Feliz.`
         },
@@ -99,17 +108,17 @@ Feliz.`
         g03: {
             token: "7e0f1c3a8d2b6f9e5a4c7b1d0f8e9a2c6b3d4f7e1",
             message: `Para Tía Elsa:
-Este nuevo año quiero decirte gracias,
-otra vez y siempre.
+Solo quería decirte gracias,
+así, sencillo.
 
-Tu forma de estar, de cuidar
-y de acompañar en silencio
-ha sido muy importante para mí.
+Tu manera de cuidar
+y de estar presente
+siempre se siente.
 
-Te deseo un 2026 lleno de salud,
-tranquilidad y momentos buenos.
-Que sigas rodeada de calma
-y de todo lo que te haga sentir bien.
+Ojalá estos días vengan con calma,
+con salud
+y con momentos que se disfruten sin prisa.
+¿Cómo te has sentido últimamente?
 
 Feliz.`
         },
@@ -117,17 +126,17 @@ Feliz.`
         g04: {
             token: "2a9c6e7f0b4d8f1e3c5a7d6b9e0f2a8c4",
             message: `Para Mariana y familia:
-Empezar 2026 también es reconocer
-a quienes han estado siempre.
+Hay personas que siempre están,
+y eso no se olvida.
 
-Gracias por seguir presentes,
-por acompañar y por sostener
-en todas las etapas.
+Gracias por seguir cerca,
+por acompañar
+y por compartir tanto.
 
-Les deseo un año con salud,
-prosperidad y estabilidad.
-Aquí sigo, como siempre,
-cuenten conmigo.
+Que estos días se sientan estables,
+ligeros
+y con buenas noticias.
+Aquí sigo, ya lo saben.
 
 Feliz.`
         },
@@ -135,15 +144,16 @@ Feliz.`
         g05: {
             token: "f1c8a9e2b6d7a0f4e3c5b9d8a6e7f2c1",
             message: `Para Zoe:
-Que este 2026 llegue con calma,
-con momentos buenos
-y con todo lo necesario para seguir avanzando.
+Ojalá este tiempo venga más tranquilo,
+con momentos bonitos
+y menos prisas.
 
-Que Emi siga creciendo rodeado de amor
-y de la fuerza que ustedes le transmiten cada día.
+Emi sigue creciendo rodeado de amor,
+y eso se nota mucho.
+Qué bonito verlos.
 
-Confío en que este año traerá cosas buenas,
-más ligeras y más claras para ustedes.
+Que las cosas se acomoden poco a poco,
+¿cómo van por allá?
 
 Feliz.`
         },
@@ -151,11 +161,13 @@ Feliz.`
         g06: {
             token: "6e4a2c9f7b1d8e0f5a3c6b9e2d7a8f1",
             message: `Para:
-Que este 2026 te empuje a confiar más en ti,
-a avanzar con constancia
-y a no soltar lo que quieres construir.
+Solo paso a recordarte
+que vas bien,
+aunque a veces no se sienta así.
 
-Cuentas conmigo para este camino.
+Confía en tu paso
+y no sueltes lo que quieres construir.
+Aquí estoy, ¿sí?
 
 Feliz.`
         },
@@ -163,11 +175,14 @@ Feliz.`
         g07: {
             token: "0f3a9e7b6c2d4f1a8e5b9c7d6f2a1e4",
             message: `Para:
-Nuevo año, nuevas oportunidades.
-Que este 2026 te traiga enfoque,
-energía y buenas decisiones.
+Que estos días traigan claridad
+y un poco de aire fresco.
 
-Aquí estoy para lo que necesites.
+A veces no se trata de correr,
+sino de acomodar bien las cosas.
+¿Todo en orden?
+
+Cuenta conmigo.
 
 Feliz.`
         },
@@ -175,16 +190,19 @@ Feliz.`
         g08: {
             token: "b2c9a6e7f0d4a1e8c3b5f9d7a2e6",
             message: `Para Tío Oscar:
-Arrancar 2026 también es agradecer
-todo lo aprendido con ustedes.
+Enero siempre se siente como
+acomodar el paso sin prisa.
 
-Cada ejemplo, consejo o rutina
-ha dejado algo bueno en mi camino.
+Quería agradecerte todo lo que,
+sin darse cuenta,
+uno va aprendiendo de ustedes:
+el ejemplo, la constancia,
+las rutinas.
 
-Les deseo mucha salud,
-estabilidad y prosperidad,
-no solo este año,
-sino en todos los que vienen.
+Ojalá este inicio se sienta tranquilo,
+con salud
+y buenos días sencillos.
+¿Cómo va arrancando el mes?
 
 Feliz.`
         },
@@ -192,11 +210,13 @@ Feliz.`
         g09: {
             token: "8f7d1a6e2c9b5a0f3e4d7c8b1f9e6",
             message: `Para:
-Que este 2026 te acerque
-a lo que realmente quieres.
-Confía en tu proceso.
+Que poco a poco
+te acerques a lo que quieres,
+sin forzarte tanto.
 
-Cuenta conmigo.
+Confía en tu proceso.
+Aquí estoy si lo necesitas,
+¿vale?
 
 Feliz.`
         },
@@ -204,11 +224,13 @@ Feliz.`
         g10: {
             token: "c4b8a9f0e2d7a1c6b3f5e9d8a7",
             message: `Para:
-Nuevo año, nueva energía.
-Que este 2026 venga con claridad,
-avance y buenos resultados.
+A veces solo hace falta
+un poco de claridad
+y seguir avanzando.
 
-Aquí estoy.
+Que estos días traigan enfoque
+y buenas señales.
+¿Cómo te has sentido?
 
 Feliz.`
         },
@@ -216,15 +238,16 @@ Feliz.`
         g11: {
             token: "1e7c9b5f2a8d6e0a4c3b9f7d1e",
             message: `Para Mamá:
-Comenzar 2026 también es desearte paz.
+Solo quería desearte tranquilidad.
+
+Que estos días se sientan más ligeros,
+con momentos buenos
+y salud.
 
 Aunque no siempre esté cerca,
-quiero que sepas que pienso en ti
-y que siempre cuentas conmigo.
-
-Te deseo salud, tranquilidad
-y muchos momentos buenos este año.
-Que todo sea más ligero.
+pienso en ti
+y sabes que cuentas conmigo.
+¿Cómo vas?
 
 Feliz.`
         },
@@ -232,13 +255,15 @@ Feliz.`
         g12: {
             token: "d0a7e9f1b6c8a2e5d4f3c9b7a",
             message: `Para Tío Lalo:
-Que este 2026 venga con impulso,
-con ideas claras y con caminos abiertos.
+Que estos días vengan con impulso,
+pero también con calma.
 
-Gracias por confiar en mí
-y por empujarme a crecer.
-Seguimos avanzando,
-aprendiendo y construyendo.
+Gracias por empujarme a crecer
+y por confiar.
+Seguimos aprendiendo,
+paso a paso.
+
+¿Cómo se siente este inicio para ti?
 
 Feliz.`
         },
@@ -246,17 +271,14 @@ Feliz.`
         g13: {
             token: "5f3b1a9e7d0c2f8a6b4e9d1c7",
             message: `Para Daniel:
-Este 2026 se siente como un año clave.
+Se siente que vienen cosas buenas.
 
-Confío en tu crecimiento,
-en lo que estás construyendo
-y en todo lo que viene.
+Confío en lo que estás construyendo
+y en todo lo que puede salir de ahí.
+Ojalá pronto coincidamos más
+y armemos algo juntos.
 
-Ojalá coincidamos más,
-armemos cosas juntos
-y llevemos ideas a otro nivel.
-
-Vamos con todo.
+¿Cómo vas arrancando?
 
 Feliz.`
         },
@@ -264,92 +286,128 @@ Feliz.`
         g14: {
             token: "a3f1c9e7d4b2a8f0c6e1d9b7a5c3f8e2d0b6a9c1e7f3d8a2b5c0e6d1f9a7",
             message: `Para Armando:
-Que este 2026 siga abriendo caminos.
+Cada quien va a su ritmo,
+y eso está bien.
 
-Aunque cada quien vaya a su ritmo,
-quiero que sepas que puedes contar conmigo,
+Solo quería recordarte
+que puedes contar conmigo,
 igual que yo contigo.
 
-Te deseo tranquilidad,
-buenos momentos
-y claridad para avanzar.
+Que estos días traigan calma
+y buenas decisiones.
+¿Cómo vas?
 
 Feliz.`
         },
 
         g15: {
             token: "b6d0f2a9c4e7f1d3a8b5c2e9f0d7a6c1e8b3d9f4a0c5e2b7d1f8a3c6e9",
-            message: `Para Tía Sandra:
-Este nuevo año quiero desearte
-algo más que buenos deseos.
+            message: `Para Sandra:
+Hoy no quiero decir algo elaborado,
+solo reconocer lo que eres.
 
-Te deseo un 2026 lleno de salud,
-sorpresas bonitas y momentos que se queden.
-Que cada día traiga algo bueno,
-aunque sea pequeño,
-pero real.
+Siempre estás,
+y eso se siente.
+Se agradece más de lo que parece.
 
-Gracias por tu presencia,
-por tu apoyo constante
-y por hacer que la familia se sienta hogar.
-Valoro mucho tu compañía
-y todo lo que compartimos.
-
-Que este año te regrese
-todo lo bueno que das.
+Que este mes venga con buenas noticias
+y momentos que valgan la pena.
+Disfrútalo a tu manera.
 
 Feliz.`
-        }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     try {
         const gift = GIFTS[id];
 
+        // Mantengo tu línea “k” pero sin romper el parámetro original:
+        const k2 = req.query.token; // <-- integración segura (no rompe const { id, k })
+
         // Validación estricta: existe el ID y el token coincide exactamente
-        if (gift && gift.token === k) {
+        if (gift && (gift.token === k || gift.token === k2)) {
             return res.status(200).json({
                 authorized: true,
                 message: gift.message
