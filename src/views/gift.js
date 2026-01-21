@@ -81,7 +81,7 @@ export default async function renderGift(params) {
   if (!interludeEl) {
     interludeEl = document.createElement('div');
     interludeEl.className = 'interlude-2026';
-    interludeEl.innerHTML = `<canvas class="fx-canvas"></canvas><div class="year-2026">2026</div>`;
+    interludeEl.innerHTML = `<canvas class="fx-canvas"></canvas><div class="year-2026">para ti</div>`;
     document.body.appendChild(interludeEl); // DIRECT BODY APPEND
   }
 
@@ -98,7 +98,7 @@ export default async function renderGift(params) {
   if (!easterEl) {
     easterEl = document.createElement('div');
     easterEl.className = 'easter-2026';
-    easterEl.innerText = 'FELIZ 2026';
+    easterEl.innerText = 'PARA TI';
     document.body.appendChild(easterEl);
   }
 
@@ -397,7 +397,7 @@ export default async function renderGift(params) {
     // Show final phrase with premium style
     const phrase = document.createElement('div');
     phrase.className = 'final-quote';
-    phrase.innerText = "Lo mejor aún no llega… pero ya viene.";
+    phrase.innerText = "Gracias.";
     contentArea.appendChild(phrase);
 
     // Slight delay for smooth entrance

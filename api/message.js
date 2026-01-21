@@ -85,7 +85,7 @@ más a tu ritmo.
 Yo sigo avanzando,
 y mucho de eso viene de ti.
 
-Feliz.`
+Siempre estaré`
         },
 
         g02: {
@@ -102,7 +102,7 @@ Sabes que cuentan conmigo,
 para lo cotidiano y para lo que se vaya armando.
 ¿Cómo va arrancando todo por allá?
 
-Feliz.`
+Siempre estaré`
         },
 
         g03: {
@@ -120,7 +120,7 @@ con salud
 y con momentos que se disfruten sin prisa.
 ¿Cómo te has sentido últimamente?
 
-Feliz.`
+Siempre estaré`
         },
 
         g04: {
@@ -138,7 +138,7 @@ ligeros
 y con buenas noticias.
 Aquí sigo, ya lo saben.
 
-Feliz.`
+Siempre estaré`
         },
 
         g05: {
@@ -155,7 +155,7 @@ Qué bonito verlos.
 Que las cosas se acomoden poco a poco,
 ¿cómo van por allá?
 
-Feliz.`
+Siempre estaré`
         },
 
         g06: {
@@ -169,7 +169,7 @@ Confía en tu paso
 y no sueltes lo que quieres construir.
 Aquí estoy, ¿sí?
 
-Feliz.`
+Siempre estaré`
         },
 
         g07: {
@@ -184,27 +184,29 @@ sino de acomodar bien las cosas.
 
 Cuenta conmigo.
 
-Feliz.`
+Siempre estaré`
         },
 
         g08: {
             token: "b2c9a6e7f0d4a1e8c3b5f9d7a2e6",
             message: `Para Tío Oscar:
-Enero siempre se siente como
-acomodar el paso sin prisa.
+Quería agradecerle
+los días que pude estar en su casa.
 
-Quería agradecerte todo lo que,
-sin darse cuenta,
-uno va aprendiendo de ustedes:
-el ejemplo, la constancia,
-las rutinas.
+El trato,
+el espacio,
+y la convivencia.
 
-Ojalá este inicio se sienta tranquilo,
+Todo eso se valora
+más de lo que a veces se dice.
+
+Le deseo un inicio de año tranquilo,
 con salud
-y buenos días sencillos.
-¿Cómo va arrancando el mes?
+y días en calma 
+con un exito que grite muy fuerte.
 
-Feliz.`
+
+Siempre estaré`
         },
 
         g09: {
@@ -218,7 +220,7 @@ Confía en tu proceso.
 Aquí estoy si lo necesitas,
 ¿vale?
 
-Feliz.`
+Siempre estaré`
         },
 
         g10: {
@@ -232,7 +234,7 @@ Que estos días traigan enfoque
 y buenas señales.
 ¿Cómo te has sentido?
 
-Feliz.`
+Siempre estaré`
         },
 
         g11: {
@@ -249,7 +251,7 @@ pienso en ti
 y sabes que cuentas conmigo.
 ¿Cómo vas?
 
-Feliz.`
+Siempre estaré`
         },
 
         g12: {
@@ -265,7 +267,7 @@ paso a paso.
 
 ¿Cómo se siente este inicio para ti?
 
-Feliz.`
+Siempre estaré`
         },
 
         g13: {
@@ -280,7 +282,7 @@ y armemos algo juntos.
 
 ¿Cómo vas arrancando?
 
-Feliz.`
+Siempre estaré`
         },
 
         g14: {
@@ -297,24 +299,29 @@ Que estos días traigan calma
 y buenas decisiones.
 ¿Cómo vas?
 
-Feliz.`
+Siempre estaré`
         },
 
         g15: {
             token: "b6d0f2a9c4e7f1d3a8b5c2e9f0d7a6c1e8b3d9f4a0c5e2b7d1f8a3c6e9",
             message: `Para Sandra:
-Hoy no quiero decir algo elaborado,
-solo reconocer lo que eres.
+No quiero decir algo elaborado,
+solo agradecerte de verdad.
 
-Siempre estás,
-y eso se siente.
-Se agradece más de lo que parece.
+Por el apoyo.
+Por los consejos, incluso sin palabras.
+Por abrir tu casa y tu familia.
 
-Que este mes venga con buenas noticias
-y momentos que valgan la pena.
-Disfrútalo a tu manera.
+Admiro lo que han construido.
+Y les deseo siempre lo mejor.
 
-Feliz.`
+Así como ustedes han estado para mí,
+yo estaré para ustedes.
+
+Hoy por mí,
+mañana por ustedes.
+
+Siempre estaré`
         },
 
 
