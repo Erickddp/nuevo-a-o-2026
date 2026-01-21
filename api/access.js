@@ -29,12 +29,12 @@ export default function handler(req, res) {
             { ids: ['g05'], names: ['zoe', 'zoe y familia', 'emi'], pin: '1225' },
             // g06, g07 available
             { ids: ['g08'], names: ['tio oscar', 'oscar'], pin: '1026' },
-            // g09, g10 available
+            { ids: ['g09'], names: ['eloscar', 'oscarin'], pin: '9999' },
             { ids: ['g11'], names: ['mama', 'madre', 'paty'], pin: '2000' },
             { ids: ['g12'], names: ['tio lalo', 'lalo', 'eduardo'], pin: '1212' },
             { ids: ['g13'], names: ['daniel', 'dani'], pin: '9999' },
             { ids: ['g14'], names: ['armando'], pin: '1225' },
-            { ids: ['g15'], names: ['tia sandra', 'sandra'], pin: '1501' }
+            { ids: ['g15'], names: ['tia sandra', 'sandra', 'sandy'], pin: '1501' }
         ];
 
         // Find user

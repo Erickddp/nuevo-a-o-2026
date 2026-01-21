@@ -263,9 +263,11 @@ pero también con calma.
 Gracias por empujarme a crecer
 y por confiar.
 Seguimos aprendiendo,
-paso a paso.
+paso a paso.    
 
-¿Cómo se siente este inicio para ti?
+Que este año se cumplan todas tus metas
+Que tu buena vibra siga alegrando vidas
+Que la vida le de lo mejor a los mejores
 
 Siempre estaré`
         },
@@ -304,7 +306,7 @@ Siempre estaré`
 
         g15: {
             token: "b6d0f2a9c4e7f1d3a8b5c2e9f0d7a6c1e8b3d9f4a0c5e2b7d1f8a3c6e9",
-            message: `Para Sandra:
+            message: `Tía Sandra:
 No quiero decir algo elaborado,
 solo agradecerte de verdad.
 
