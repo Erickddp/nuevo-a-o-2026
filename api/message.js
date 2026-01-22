@@ -190,20 +190,19 @@ Siempre estaré`
         g08: {
             token: "b2c9a6e7f0d4a1e8c3b5f9d7a2e6",
             message: `Para Tío Oscar:
-Quería agradecerle
-los días que pude estar en su casa.
+Quería agradecerle,
+no solo por estos días,
+sino por todo.
 
-El trato,
-el espacio,
-y la convivencia.
+Por el apoyo,
+por la forma de estar,
+y por lo que uno va aprendiendo con el tiempo.
 
-Todo eso se valora
-más de lo que a veces se dice.
+Son cosas que no siempre se dicen,
+pero que sí se valoran.
 
-Le deseo un inicio de año tranquilo,
-con salud
-y días en calma 
-con un exito que grite muy fuerte.
+De mi parte hay aprecio real
+y gratitud sincera.
 
 
 Siempre estaré`
