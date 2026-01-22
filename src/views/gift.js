@@ -218,7 +218,7 @@ export default async function renderGift(params) {
     focusOverlay.classList.remove('active');
     const introEl = document.createElement('div');
     introEl.className = 'intro-text loading';
-    introEl.innerText = 'Esto es para';
+    introEl.innerText = '🤗';
     contentArea.appendChild(introEl);
 
     // Initial fade setup
