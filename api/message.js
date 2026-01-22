@@ -189,7 +189,7 @@ Siempre estaré`
 
         g08: {
             token: "b2c9a6e7f0d4a1e8c3b5f9d7a2e6",
-            message: `Para Tío Oscar:
+            message: `Tío Oscar:
 Quería agradecerle,
 no solo por estos días,
 sino por todo.
@@ -210,14 +210,19 @@ Siempre estaré`
 
         g09: {
             token: "8f7d1a6e2c9b5a0f3e4d7c8b1f9e6",
-            message: `Para:
-Que poco a poco
-te acerques a lo que quieres,
-sin forzarte tanto.
+            message: `Eloscar:
+Vago y naco si puedes ser
+pero no importa, me agradas.
 
-Confía en tu proceso.
-Aquí estoy si lo necesitas,
-¿vale?
+Y te acepto como eres.
+
+Jaja, es puro juego
+siempre has sido una persona muy especial para mi
+y mas ahora que convivimos más
+
+Quiero que sepas que si vamos a conseguir el 2pa2
+este es nuestro año
+y que bueno que formes parte de el. 
 
 Siempre estaré`
         },
