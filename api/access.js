@@ -29,7 +29,7 @@ export default function handler(req, res) {
             { ids: ['g05'], names: ['zoe', 'zoe y familia', 'emi', 'Emi'], pin: '1225' },
             // g06, g07 available
             { ids: ['g08'], names: ['tio oscar', 'oscar', 'Oscar', 'Tio Oscar'], pin: '1026' },
-            { ids: ['g09'], names: ['eloscar', 'oscarin', 'Eloscar', 'Oscarin'], pin: '9999' },
+            { ids: ['g09'], names: ['eloscar', 'oscarin', 'Eloscar', 'Oscarin'], pin: '1402' },
             { ids: ['g11'], names: ['mama', 'madre', 'monica', 'Monica', 'Moni', 'Mama'], pin: '2000' },
             { ids: ['g12'], names: ['tio lalo', 'lalo', 'eduardo', 'Eduardo', 'Lalo'], pin: '1212' },
             { ids: ['g13'], names: ['daniel', 'dani', 'Daniel', 'Dani'], pin: '9999' },

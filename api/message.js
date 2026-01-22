@@ -244,16 +244,18 @@ Siempre estaré`
         g11: {
             token: "1e7c9b5f2a8d6e0a4c3b9f7d1e",
             message: `Para Mamá:
-Solo quería desearte tranquilidad.
+Solo quería desearte tranquilidad
+y que estés bien.
 
 Que estos días se sientan más ligeros,
-con momentos buenos
-y salud.
+con salud,
+con momentos buenos,
+y con calma.
 
-Aunque no siempre esté cerca,
+Aunque no siempre esté cerca
+ni sepa decir muchas cosas,
 pienso en ti
-y sabes que cuentas conmigo.
-¿Cómo vas?
+y me importas.
 
 Siempre estaré`
         },
@@ -315,8 +317,9 @@ No quiero decir algo elaborado,
 solo agradecerte de verdad.
 
 Por el apoyo.
-Por los consejos, incluso sin palabras.
-Por abrir tu casa y tu familia.
+Por los consejos que me dan,
+Incluso sin palabras, el ejemplo lo es todo
+Por abrirme la puerta de tu casa y tu familia.
 
 Admiro lo que han construido.
 Y les deseo siempre lo mejor.
@@ -324,8 +327,12 @@ Y les deseo siempre lo mejor.
 Así como ustedes han estado para mí,
 yo estaré para ustedes.
 
-Hoy por mí,
-mañana por ustedes.
+
+Simplemente escuchar un 
+"Hoy por mí, mañana por ustedes." 
+es algo que valoro mucho.
+
+Por eso y mas
 
 Siempre estaré`
         },

@@ -133,7 +133,7 @@ export default async function renderAcceso() {
         if (state === 'NAME') {
             const val = nameInput.value.trim();
             if (val.length < 2) {
-                errorMsg.innerText = 'Por favor escribe un nombre válido.';
+                errorMsg.innerText = 'Lo siento creo que no te conozco.';
                 return;
             }
             currentName = val;

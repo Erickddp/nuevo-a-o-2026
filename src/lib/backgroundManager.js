@@ -16,11 +16,11 @@ const DEFAULT_CONFIG = {
     },
     density: {
         floatCountDesktop: 120,
-        floatCountMobile: 90,
+        floatCountMobile: 80,
         bokehCountDesktop: 120,
-        bokehCountMobile: 90,
+        bokehCountMobile: 80,
         sparklesCountDesktop: 35,
-        sparklesCountMobile: 90,
+        sparklesCountMobile: 80,
         maxParticles: 100
     },
     visuals: {
