@@ -38,16 +38,19 @@ export default function handler(req, res) {
         ];
 
         // Find user
-        const entry = ACCESS_DB.find(e => e.names.some(n => normalizedName === n || normalizedName.includes(n)));
+        // Prioritize longer matches to avoid substring collisions (e.g. "eloscar" vs "oscar")
+        const matches = ACCESS_DB
+            .map(e => ({
+                entry: e,
+                matchedName: e.names.find(n => normalizedName === n || normalizedName.includes(n))
+            }))
+            .filter(x => x.matchedName)
+            .sort((a, b) => b.matchedName.length - a.matchedName.length);
 
-        if (!entry) {
-            return res.status(404).json({ authorized: false, error: 'NAME_NOT_FOUND' });
-        }
+        const entry = matches.length > 0 ? matches[0].entry : undefined;
 
-        // Validate PIN
-        if (pin !== entry.pin) {
-            return res.status(401).json({ authorized: false, error: 'WRONG_PIN' });
-        }
+        if (!entry) return res.status(404).json({ authorized: false, error: 'NAME_NOT_FOUND' });
+        if (pin !== entry.pin) return res.status(401).json({ authorized: false, error: 'WRONG_PIN' });
 
         // Get Gift ID (default to first one if multiple, though currently 1:1)
         const giftId = entry.ids[0];
